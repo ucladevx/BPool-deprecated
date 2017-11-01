@@ -12,5 +12,9 @@
     "scripts": {
         "start": "node index.js",
         "test": "mocha test/index.js"
+    },
+    "dependencies": {
+      "express": "^4.16.2",
+      "hbs": "^4.0.1"
     }
 }
