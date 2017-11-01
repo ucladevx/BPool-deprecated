@@ -4,27 +4,6 @@ This platform provides a quick, unified, and standard means of launching an appl
 
 The platform is built around containers. Everything is a container — each database, each backend, etc. An app can therefore scale horizontally with no effort and can have multiple databases and backends connected together. Simply describe the stack you want in `docker-compose.yml`, generate it with `make stack`, write your code, and launch it with `make deploy`.
 
-## Supported Stacks
-
-Currently, the platform supports a limited number of backends and databases. More will be added soon, but if you don't see the stack you want, it is easy to add.
-
-#### Backends
-
-- Node.js
-- Python
-- Golang
-- Rails
-- PHP
-- Nginx
-
-#### Databases
-
-- Mongo DB
-- MySQL
-- PostgreSQL
-- Redis
-
-You can select any combination of these stacks.
 
 ## Getting Started
 
@@ -61,25 +40,6 @@ bash-4.3$ npm install --save express
 
 After installing new dependencies, **always** run `npm shrinkwrap`. This makes sure that the same versions of the packages will always install.
 
-### Ruby on Rails
-
-Containerizing Rails is just as easy. Assuming you have a `web_rails` in the `docker-compose.yml` file, you can simply run
-
-```bash
-vagrant@devx:/vagrant$ dc run web_rails bash
-bash-4.3$
-```
-
-You can develop as you normally would with rails inside the container:
-
-```bash
-bash-4.3$ rake db:create
-...
-bash-4.3$ rake db:migrate
-...
-bash-4.3$ echo 'puts "Hello World!"' | ruby
-Hello World!
-```
 
 ### Frontend Development
 

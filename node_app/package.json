@@ -1,13 +1,11 @@
 {
-    "name": "your-app-name-here",
-    "description": "Your App Description Here",
-    "author": "PM name here",
+    "name": "BPool",
+    "description": "A transportation app that aims to optimize the UCLA carpool process",
+    "author": "George Archbold",
     "contributors":[
-        { "name": "each", "email": "email" },
+        { "George Archbold": "each", "email": "email" },
         { "name": "person", "email": "email" },
-        { "name": "in", "email": "email" },
-        { "name": "the", "email": "email" },
-        { "name": "team", "email": "email" }
+
     ],
     "version": "1.0.0",
     "license": "MPL-2.0",
