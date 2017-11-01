@@ -1,0 +1,16 @@
+# golang-specific
+vendor
+
+# misc and platform
+stack
+docker-compose.yml
+Makefile
+setup.sh
+stack-gen.py
+vagrant-provision.sh
+Vagrantfile
+Dockerfile
+
+.DS_Store
+.git
+.gitignore
