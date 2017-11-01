@@ -20,100 +20,14 @@
 
 version: '2'
 services:
-  # web_rails:
-  #   build:
-  #     ### MARK:rails_build
-  #   command: './start.sh'
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     ### MARK:rails_volume
-  #   volumes_from:
-  #     - vol_gems
-  #   links:
-  #     - db_postgres
-  #     - db_redis
-  #     - db_mongo
-  #     - db_mysql
-  
    web_node:
      build: ./node_app
      ports:
        - "3000:3000"
-     volumes:
-       - ./node_app:/app
      links:
-  #     - db_postgres
-  #     - db_redis
        - db_mongo
-  #     - db_mysql
 
-  # web_golang:
-  #   build: ./golang_app
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - "./golang_app:/go"
-  #   links:
-  #     - db_postgres
-  #     - db_redis
-  #     - db_mongo
-  #     - db_mysql
-
-  # web_python:
-  #   build: ./python_app
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./python_app:/app
-    # links:
-    #   - db_postgres
-    #   - db_redis
-    #   - db_mongo
-    #   - db_mysql
-
-  # web_php:
-  #   build: ./php_app
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./php_app/www:/var/www
-  #   links:
-  #     - db_postgres
-  #     - db_redis
-  #     - db_mongo
-  #     - db_mysql
-
-  # web_nginx:
-  #   build: ./nginx_app
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./nginx_app:/app
-  #   links:
-  #     - db_postgres
-  #     - db_redis
-  #     - db_mongo
-  #     - db_mysql
-
-  # db_postgres:
-  #   build: ./postgres
-  #   ports:
-  #     - "5432"
    db_mongo:
      build: ./mongo
      ports:
        - "27017"
-  # db_redis:
-  #   build: ./redis
-  #   ports:
-  #     - "6379"
-  # db_mysql:
-  #   build: ./mysql
-  #   ports:
-  #     - "3306"
-
-  # vol_gems:
-  #   image: busybox
-  #   volumes:
-  #     - /gems

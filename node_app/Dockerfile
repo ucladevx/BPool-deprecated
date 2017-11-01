@@ -1,25 +1,14 @@
 # start with a lightweight linux image
-FROM alpine:3.6
+FROM node:alpine
 
-# add necessary packages
-RUN apk update && \
-    apk upgrade && \
-    apk add bash 'nodejs-npm<=6.11' && \
-    rm -rf /var/cache/apk/*
-
-# create the data volume
-VOLUME ["/app"]
-
-# copy the package.json and shinkwrap file to app location
-COPY package.json /tmp
-COPY npm-shrinkwrap.json /tmp
-RUN cd /tmp && \
-    mkdir node_modules && \
-    npm install && \
-    mv /tmp/node_modules /app/node_modules
+ADD package.json /tmp
+ADD npm-shrinkwrap.json /tmp
+RUN cd /tmp && npm install
+RUN mkdir -p /app && cp -a /tmp/node_modules /app
 
 # set the working directory
 WORKDIR /app
+ADD . /app
 
 # open a port and start the server
 EXPOSE 3000
