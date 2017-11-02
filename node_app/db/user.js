@@ -12,6 +12,8 @@ module.exports = (function() {
 	* 	User.insert("FirstLastName", (newUser) => {
 	*		console.log(newUser);
 	* 	});
+	* Returns:
+	* 	- the actual User mongoDB object
 	*/
 	userSchema.statics.insert = function(name, callback) {
 		mongoose.connect('mongodb://db_mongo', () => {
