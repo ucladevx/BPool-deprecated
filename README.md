@@ -2,7 +2,7 @@
 
 This platform provides a quick and convenient way for UCLA students to find rides and carpool
 
-# git protocol
+# Git Protocol
 
 When working on a feature, create a new branch with your name and the feature name. 
 
@@ -10,7 +10,7 @@ When working on a feature, create a new branch with your name and the feature na
 
 This call will create a new branch and switch to that branch at time of creation
 
-Then when you are done with this feature or want to integrate into master, add and commit your changes:
+Then when you want to save the state of your code, add and commit your changes:
 
 ```
 git add -A
@@ -18,4 +18,4 @@ git commit -m "some commit message"
 git push origin <your-branch-name>
 ```
 
-Then make a pull request!
+When you reach a good state and want to merge your work with our master branch, make a pull request! Go to your branch on Github and click the "New pull request" button.
