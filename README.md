@@ -6,7 +6,7 @@ This platform provides a quick and convenient way for UCLA students to find ride
 
 When working on a feature, create a new branch with your name and the feature name. 
 
-`git checkout -b <name>/<feature>`
+`git checkout -b <your-name>/<feature-name>`
 
 This call will create a new branch and switch to that branch at time of creation
 
@@ -18,10 +18,4 @@ git commit -m "some commit message"
 git push origin <your-branch-name>
 ```
 
-
-<!-- Then checkout the master branch and merge your feature into master
-
-'git checkout master'
-
-'git merge name-feature'
- -->
+Then make a pull request!
