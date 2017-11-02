@@ -6,7 +6,10 @@ This platform provides a quick and convenient way for UCLA students to find ride
 
 When working on a feature, create a new branch with your name and the feature name. 
 
-`git checkout -b <your-name>/<feature-name>`
+```
+git checkout -b <your-name>/<feature-name>
+git push --set-upstream origin <your-name>/<feature-name>
+```
 
 This call will create a new branch and switch to that branch at time of creation
 
@@ -15,7 +18,7 @@ Then when you want to save the state of your code, add and commit your changes:
 ```
 git add -A
 git commit -m "some commit message"
-git push origin <your-branch-name>
+git push
 ```
 
 When you reach a good state and want to merge your work with our master branch, make a pull request! Go to your branch on Github and click the "New pull request" button.
