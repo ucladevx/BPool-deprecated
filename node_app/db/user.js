@@ -16,16 +16,17 @@ module.exports = (function() {
 	* 	- the actual User mongoDB object
 	*/
 	userSchema.statics.insert = function(name, callback) {
-		mongoose.connect('mongodb://db_mongo', () => {
-			let user = new User({ name: name });
-			user.save(function (err, data) {
-				if (err) {
-				  	return console.error(err);
-				}
-				
+		let user = new User({ name: name });
+		user.save(function (err, data) {
+			if (err) {
+				throw err;
+			}
+			
+			if (callback) {
 				callback(user);
-				return;
-			});
+			}
+
+			return;
 		});
 	}
 
