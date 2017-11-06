@@ -3,6 +3,10 @@ const settings = require('./config.js');
 const express = require('express');
 const app = express();
 
+// Database Models
+const db = require('./db/db.js');
+const User = require('./db/user.js');
+
 app.set('view engine', 'hbs');
 app.use(express.static('public'));
 
