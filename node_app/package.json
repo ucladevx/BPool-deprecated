@@ -15,7 +15,7 @@
     },
     "dependencies": {
       "express": "^4.16.2",
-      "hbs": "^4.0.1",
+      "express3-handlebars": "^0.5.2",
       "mongoose": "^4.12.6"
     }
 }
