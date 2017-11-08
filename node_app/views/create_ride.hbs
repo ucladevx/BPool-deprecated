@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="row">
+        <form class="col m6 offset-m3 l8 offset-l2" method="POST" action="/ride/create">
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">date_range</i>
+                    <input type="text" class="datepicker" id="date" name="date">
+                    <label for="date">Date</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">access_time</i>
+                    <input type="text" class="timepicker" id="time" name="time">
+                    <label for="time">Time</label>
+                </div>
+            </div>
+                         
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">person_pin</i>
+                    <input type="text" class="validate" id="origin" name="origin">
+                    <label for="origin">Origin</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">pin_drop</i>
+                    <input type="text" class="validate" id="destination" name="destination">
+                    <label for="destination">Destination</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field inline">
+                    <i class="material-icons prefix">directions_car</i>
+                    <input type="text" class="validate" id="carModel" name="carModel">
+                    <label for="carModel">Car Model</label>
+                </div>
+                <div class="input-field inline">
+                    <i class="material-icons prefix">airline_seat_recline_normal</i>
+                    <input type="number" class="validate" id="carNumSeats" name="carNumSeats">
+                    <label for="carNumSeats">Available Seats</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">textsms</i>
+                    <textarea class="materialize-textarea" id="rideDescription" name="rideDescription"></textarea>
+                    <label for="rideDescription">Ride Description</label>
+                </div>
+            </div>
+
+            {{!-- TODO: validate currency input format --}}
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">attach_money</i>
+                    <input type="number" class="validate" step="0.01" id="price" name="price">
+                    <label for="price">Price per seat</label>
+                </div>
+            </div>
+
+            <button class="btn waves-effect waves-light" type="submit" name="action">Create
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+</div>
+
+{{!-- TODO: move JS for date picker and time picker to external stylesheet for reuse --}}
+<script>
+    // TODO: fix date format
+    $('.datepicker').pickadate({
+        selectMonths: true,
+        selectYears: 15,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false
+    });
+    
+    // TODO: fix time format
+    $('.timepicker').pickatime({
+        default: 'now',
+        fromnow: 0,
+        donetext: 'OK',
+        cleartext: 'Clear',
+        canceltext: 'Cancel',
+        autoclose: false,
+        ampmclickable: true
+    });
+</script>
