@@ -17,7 +17,7 @@ app.engine( 'hbs', exphbs({
 	partialsDir: __dirname + '/views/partials/'
 }));
 app.set('view engine', 'hbs');
-
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(settings.port, () => {
@@ -47,4 +47,10 @@ app.post('/ride/create', (req, res) => {
 	// TODO: Create and save Ride object to database
 
 	res.redirect('/');
+});
+
+app.get('/ride/:id', (req, res) => {
+	let rideID = req.params.id;
+	// TODO: query database for ride with this rideID
+	res.render('ride_details');
 });
