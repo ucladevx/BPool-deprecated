@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
-        <form class="col m6 offset-m3 l8 offset-l2">
+        <form class="col m6 offset-m3 l8 offset-l2" method="POST" action="/ride/create">
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">date_range</i>
-                    <input type="text" class="datepicker" id="date">
+                    <input type="text" class="datepicker" id="date" name="date">
                     <label for="date">Date</label>
                 </div>
             </div>
@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">access_time</i>
-                    <input type="text" class="timepicker" id="time">
+                    <input type="text" class="timepicker" id="time" name="time">
                     <label for="time">Time</label>
                 </div>
             </div>
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">person_pin</i>
-                    <input id="origin" type="text" class="validate">
+                    <input type="text" class="validate" id="origin" name="origin">
                     <label for="origin">Origin</label>
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">pin_drop</i>
-                    <input id="destination" type="text" class="validate">
+                    <input type="text" class="validate" id="destination" name="destination">
                     <label for="destination">Destination</label>
                 </div>
             </div>
@@ -36,12 +36,12 @@
             <div class="row">
                 <div class="input-field inline">
                     <i class="material-icons prefix">directions_car</i>
-                    <input id="carModel" type="text" class="validate">
+                    <input type="text" class="validate" id="carModel" name="carModel">
                     <label for="carModel">Car Model</label>
                 </div>
                 <div class="input-field inline">
                     <i class="material-icons prefix">airline_seat_recline_normal</i>
-                    <input id="carNumSeats" type="number" class="validate">
+                    <input type="number" class="validate" id="carNumSeats" name="carNumSeats">
                     <label for="carNumSeats">Available Seats</label>
                 </div>
             </div>
@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">textsms</i>
-                    <textarea id="rideDescription" class="materialize-textarea"></textarea>
+                    <textarea class="materialize-textarea" id="rideDescription" name="rideDescription"></textarea>
                     <label for="rideDescription">Ride Description</label>
                 </div>
             </div>
@@ -58,37 +58,37 @@
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">attach_money</i>
-                    <input id="price" type="number" class="validate" step="0.01">
+                    <input type="number" class="validate" step="0.01" id="price" name="price">
                     <label for="price">Price per seat</label>
                 </div>
             </div>
 
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                <i class="material-icons right">Create Ride</i>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Create
+                <i class="material-icons right">send</i>
             </button>
         </form>
     </div>
 </div>
 
 <script>
+    // TODO: fix date format
     $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        selectMonths: true,
+        selectYears: 15,
         today: 'Today',
         clear: 'Clear',
         close: 'Ok',
-        closeOnSelect: false // Close upon selecting a date,
+        closeOnSelect: false
     });
     
+    // TODO: fix time format
     $('.timepicker').pickatime({
-        default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-        fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-        // twelvehour: false, // Use AM/PM or 24-hour format
-        donetext: 'OK', // text for done-button
-        cleartext: 'Clear', // text for clear-button
-        canceltext: 'Cancel', // Text for cancel-button
-        autoclose: false, // automatic close timepicker
-        ampmclickable: true, // make AM PM clickable
-        aftershow: function(){} //Function for after opening timepicker
+        default: 'now',
+        fromnow: 0,
+        donetext: 'OK',
+        cleartext: 'Clear',
+        canceltext: 'Cancel',
+        autoclose: false,
+        ampmclickable: true
     });
 </script>
