@@ -26,3 +26,7 @@ app.get('/', (req, res) => {
 		title: "Home"
 	});
 });
+
+app.get('/ride/new', (req, res) => {
+	res.render('create_ride');
+});
