@@ -13,13 +13,13 @@ var rideSchema = new mongoose.Schema({
 
 /*
 * Functionality:
-* 	- inserts a new User object into our database
+* 	- inserts a new Ride object into our database
 * Usage:
-* 	User.insert("FirstLastName", (newUser) => {
-*		console.log(newUser);
+* 	Ride.insert("Source", "Destination", 13, new Date(), "Name",  (newRide) => {
+*		console.log(newRide);
 * 	});
 * Returns:
-* 	- the actual User mongoDB object
+* 	- the actual Ride mongoDB object
 */
 rideSchema.statics.insert = function(source, destination, price, date, driver, callback) {
 	let ride = new Ride({ source: source,

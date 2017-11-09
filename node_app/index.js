@@ -10,10 +10,6 @@ const db = require('./db/db.js');
 const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 
-Ride.insert("UCLA", "San Diego", 18, new Date(), "John", (newRide) => {
-	console.log(newRide);
-});
-
 app.use(express.static('public'));
 app.engine( 'hbs', exphbs({
 	extname: 'hbs',
