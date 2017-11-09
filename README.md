@@ -23,7 +23,7 @@ git push
 
 When you reach a good state and want to merge your work with our master branch, make a pull request! Go to your branch on Github and click the "New pull request" button.
 
-# Dev Evironment on Windows
+# Dev Environment on Windows
 Using docker machine and virtual box
 ```
 docker-machine create --driver=virtualbox default
