@@ -2,7 +2,20 @@ module.exports = (function() {
 	let mongoose = require('mongoose');
 
 	var userSchema = new mongoose.Schema({
-		name: String
+		name: String,
+		username: { type: String, required: true, unique: true },
+ 	  	password: { type: String, required: true },
+ 	  	rideList: Array,
+ 	  	driveList: Array,
+ 	  	pendingRides: Array,
+ 	  	location: String,
+ 	  	contactInfo: {
+ 	  	phone: Number,
+ 	  	email: String
+ 	  	},
+ 	  	generalInfo: {
+     	age: Number,
+     }
 	});
 
 	/*
@@ -16,7 +29,8 @@ module.exports = (function() {
 	* 	- the actual User mongoDB object
 	*/
 	userSchema.statics.insert = function(name, callback) {
-		let user = new User({ name: name });
+		let user = new User({ name: name, age: age, 
+			location: location, email: email});
 		user.save(function (err, data) {
 			if (err) {
 				throw err;
@@ -32,4 +46,5 @@ module.exports = (function() {
 
 	let User = mongoose.model('User', userSchema);
 	return User;
+
 }());
