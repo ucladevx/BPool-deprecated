@@ -44,6 +44,7 @@ app.post('/ride/create', (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = req.body.price;
 
+
 	// TODO: Create and save Ride object to database
 
 	res.redirect('/');

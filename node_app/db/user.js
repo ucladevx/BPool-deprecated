@@ -3,8 +3,6 @@ module.exports = (function() {
 
 	var userSchema = new mongoose.Schema({
 		name: String,
-		username: { type: String, required: true, unique: true },
- 	  	password: { type: String, required: true },
  	  	rideList: Array,
  	  	driveList: Array,
  	  	pendingRides: Array,
@@ -28,8 +26,8 @@ module.exports = (function() {
 	* Returns:
 	* 	- the actual User mongoDB object
 	*/
-	userSchema.statics.insert = function(name, callback) {
-		let user = new User({ name: name, age: age, 
+	userSchema.statics.insert = function(name, age, location, email, callback) {
+		let user = new User({ name: name,  
 			location: location, email: email});
 		user.save(function (err, data) {
 			if (err) {
