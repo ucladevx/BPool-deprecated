@@ -12,8 +12,8 @@ module.exports = (function() {
  	  	email: String
  	  	},
  	  	generalInfo: {
-     	age: Number,
-     }
+     		age: Number,
+     		}
 	});
 
 	/*
