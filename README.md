@@ -29,6 +29,6 @@ Using docker machine and virtual box
 docker-machine create --driver=virtualbox default
 docker-machine start
 eval $(docker-machine env default)
-docker-compose up
+docker-compose up --build
 ```
 
