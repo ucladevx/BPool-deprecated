@@ -32,7 +32,7 @@ eval $(docker-machine env default)
 docker-compose up --build
 ```
 
-#AWS Deployment
+# AWS Deployment
 To push local repo to the EC2 server
 ```
 make build-aws
