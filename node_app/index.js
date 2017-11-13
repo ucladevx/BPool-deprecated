@@ -10,6 +10,21 @@ const db = require('./db/db.js');
 const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 
+
+// Ride.remove(function(err) {
+// });
+// Ride.insert("BC", "SD", 15, new Date(), "driver1", (newRide) => {
+// 	console.log(newRide);
+// });
+// Ride.insert("LA", "TB", 15, new Date(), "driver1", (newRide) => {
+// 	// console.log(newRide);
+// });
+Ride.searchByFilters("BC", "SD", null, null, 11, function(err, rides) {
+  if (err) throw err;
+  console.log(rides);
+});
+
+
 app.use(express.static('public'));
 app.engine( 'hbs', exphbs({
 	extname: 'hbs',
