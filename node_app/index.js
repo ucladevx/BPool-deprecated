@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 
 app.get('/ride/all', (req, res) => {
 	Ride.getAll((rides) => {
-		console.log(rides);
+		res.render('all_rides', { rides: rides });
 	});
 });
 
