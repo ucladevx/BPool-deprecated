@@ -2,10 +2,15 @@
     "name": "BPool",
     "description": "A transportation app that aims to optimize the UCLA carpool process",
     "author": "George Archbold",
-    "contributors":[
-        { "George Archbold": "each", "email": "email" },
-        { "name": "person", "email": "email" }
-
+    "contributors": [
+        {
+            "George Archbold": "each",
+            "email": "email"
+        },
+        {
+            "name": "person",
+            "email": "email"
+        }
     ],
     "version": "1.0.0",
     "license": "MPL-2.0",
@@ -14,9 +19,12 @@
         "test": "mocha test/index.js"
     },
     "dependencies": {
-      "express": "^4.16.2",
-      "express3-handlebars": "^0.5.2",
-      "mongoose": "^4.12.6",
-      "body-parser": "^1.18.2"
+        "express": "^4.16.2",
+        "express3-handlebars": "^0.5.2",
+        "mongoose": "^4.12.6",
+        "body-parser": "^1.18.2",
+        "express-session": "^1.14.1",
+        "passport": "^0.3.2",
+        "passport-facebook": "^2.1.1"
     }
 }
