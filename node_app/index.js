@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const db = require('./db/db.js');
 const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
+const seed = require('./db/seed.js');
 
 app.use(express.static('public'));
 app.engine( 'hbs', exphbs({
@@ -31,6 +32,13 @@ app.get('/', (req, res) => {
 		content: ""
 	});
 });
+
+app.get('/ride/all', (req, res) => {
+	Ride.getAll((rides) => {
+		console.log(rides);
+	});
+});
+
 app.get('/ride/new', (req, res) => {
 	res.render('create_ride');
 });
