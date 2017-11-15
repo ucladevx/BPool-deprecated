@@ -17,11 +17,11 @@ var rideSchema = new mongoose.Schema({
                 Source
                 Date - Date object specifying month and day
  Usage:
- //Month is (0-11) and Day is (1-31)
+   // Month is (0-11) and Day is (1-31)
    Ride.searchByFilters("Destination", "Source", new Date((new Date()).getUTCFullYear(), month, day), (rides) => {
      console.log(rides);
    });
-Returns:
+ Returns:
   All rides in db that match criteria
 */
 
@@ -39,11 +39,11 @@ rideSchema.statics.searchByFilters = function(destination, source, date, callbac
   endOfDate.setHours(24);
 
   Ride.find(query).where('date').gt(startOfDate).lt(endOfDate).exec(function(err, rides){
-    if (err) {
-      throw err;
-    }
-    if (callback) {
-      callback(rides);
+  	if (err) {
+      		throw err;
+    	}
+    	if (callback) {
+      		callback(rides);
   	}
   });
 }
@@ -70,7 +70,7 @@ rideSchema.statics.insert = function(source, destination, price, date, driver, c
 			throw err;
 		}
 		if (callback) {
-      callback(ride);
+      			callback(ride);
 		}
 		return;
 	});
