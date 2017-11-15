@@ -1,0 +1,39 @@
+
+.image1 {
+  width: 100%;
+  height: 900px;
+  overflow: hidden;
+  background-image: url("pic.jpg");
+  background-size: cover;
+}
+.outerbox {
+  margin-top: 300px;
+  margin-left: 300px;
+  margin-right: 300px;
+  height: 100px;
+  background: white;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.textbox {
+  border: 4px solid pink;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 3px;
+  margin: 5px;
+  height: 60px;
+  text-align: center;
+  justify-content: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+.fbwrapper {
+  text-align: center;
+  height: 40%;
+
+}
+.fbbutton {
+  position: absolute;
+}

@@ -1,3 +1,5 @@
 **/node_modules/
 node_app/npm-debug.log
 id_rsa_bpool
+**/.DS_Store
+
