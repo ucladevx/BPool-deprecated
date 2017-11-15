@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 // Database Models
 const db = require('./db/db.js');
 const User = require('./db/user.js');
+const Ride = require('./db/ride.js');
 
 app.use(express.static('public'));
 app.engine( 'hbs', exphbs({
@@ -43,9 +44,7 @@ app.post('/ride/create', (req, res) => {
 	let carNumSeats = req.body.carNumSeats;
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = req.body.price;
-
 	// TODO: Create and save Ride object to database
-
 	res.redirect('/');
 });
 
@@ -58,3 +57,4 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
 	res.redirect('/');
 });
+=

@@ -22,3 +22,29 @@ git push
 ```
 
 When you reach a good state and want to merge your work with our master branch, make a pull request! Go to your branch on Github and click the "New pull request" button.
+
+# Dev Environment on Windows
+Using docker machine and virtual box
+```
+docker-machine create --driver=virtualbox default
+docker-machine start
+eval $(docker-machine env default)
+docker-compose up --build
+```
+
+# AWS Deployment
+To push local repo to the EC2 server
+```
+make build-aws
+make push
+```
+Then log into the EC2 server machine
+```
+make ssh
+```
+
+And then deploy the pushed changes
+```
+make deploy
+```
+
