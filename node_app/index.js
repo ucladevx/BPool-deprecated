@@ -124,5 +124,3 @@ app.post('/ride/find', (req, res) => {
 	let rideDestination = req.body.destination;
 	res.redirect('/ride/all');
 });
-
-
