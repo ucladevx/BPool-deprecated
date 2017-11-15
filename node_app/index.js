@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const exphbs = require('express3-handlebars');
 const bodyParser = require('body-parser');
+const dateFormat = require('dateformat');
 const session = require('express-session');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
@@ -12,13 +13,23 @@ const FacebookStrategy = require('passport-facebook');
 const db = require('./db/db.js');
 const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
+const seed = require('./db/seed.js');
+
+// make this available to our users in our Node applications
+module.exports = User;
 
 app.use(express.static('public'));
 app.engine('hbs', exphbs({
 	extname: 'hbs',
 	defaultLayout: 'base',
 	layoutsDir: __dirname + '/views/layouts/',
-	partialsDir: __dirname + '/views/partials/'
+	partialsDir: __dirname + '/views/partials/',
+	helpers: {
+		// TODO make a more generic date formatter
+		formatDateMMDDYYYY: (dateObj) => {
+			return dateFormat(dateObj, "mmmm dS, yyyy");			
+		}
+	}
 }));
 app.set('view engine', 'hbs');
 
@@ -64,8 +75,19 @@ app.get('/', (req, res) => {
 		});
 	}
 });
+
+app.get('/ride/all', (req, res) => {
+	Ride.getAll((rides) => {
+		res.render('all_rides', { rides: rides });
+	});
+});
+
 app.get('/ride/new', (req, res) => {
 	res.render('create_ride');
+});
+
+app.get('/ride/find', (req, res) => {
+	res.render('rides-find');
 });
 
 app.post('/ride/create', (req, res) => {
@@ -95,4 +117,15 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 	// res.redirect('/');
 	 res.redirect('/ride/find');
 });
+
+app.post('/ride/find', (req, res) => {
+	let rideDate = req.body.date;
+	let rideOrigin = req.body.origin;
+	let rideDestination = req.body.destination;
+	
+	//TODO: redirect to ride/all
+
+	res.redirect('/');
+});
+
 
