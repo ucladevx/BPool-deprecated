@@ -122,10 +122,7 @@ app.post('/ride/find', (req, res) => {
 	let rideDate = req.body.date;
 	let rideOrigin = req.body.origin;
 	let rideDestination = req.body.destination;
-	
-	//TODO: redirect to ride/all
-
-	res.redirect('/');
+	res.redirect('/ride/all');
 });
 
 
