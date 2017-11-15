@@ -1,3 +1,7 @@
+.container {
+  padding-top: 100px;
+}
+
 .landing-container {
   background: url(landing.jpg) no-repeat center center;
   background-size: cover;
