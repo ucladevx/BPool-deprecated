@@ -13,32 +13,16 @@ var rideSchema = new mongoose.Schema({
 
 /*
  Functionality- Searches for all rides that match passed in criteria
-                Destination
-                Source
-                Date - Date object specifying month and day
+                Source, Destination, Date
  Usage:
-   // Month is (0-11) and Day is (1-31)
-   Ride.searchByFilters("Destination", "Source", new Date((new Date()).getUTCFullYear(), month, day), (rides) => {
+   Ride.searchByFilters("Destination", "Source", Date), (rides) => {
      console.log(rides);
    });
  Returns:
   All rides in db that match criteria
 */
-
-rideSchema.statics.searchByFilters = function(destination, source, date, callback) {
-  var query =
-  {
-    'destination' : destination,
-    'source': source
-  }
-  //Given a Date Object specifying Month and Day, creates two new date objects
-  //representing start and end of day. Then matches with all rides whose date
-  //takes place within that time frame.
-  var startOfDate = (new Date(date.getTime()));
-  var endOfDate = (new Date(date.getTime()));
-  endOfDate.setHours(24);
-
-  Ride.find(query).where('date').gt(startOfDate).lt(endOfDate).exec(function(err, rides){
+rideSchema.statics.searchByFilters = function(source, destination, date, callback) {
+  Ride.find({'$where': 'this.date.toDateString() ==  "' + date.toDateString() + '"'}).where('source').eq(source).where('destination').eq(destination).exec(function(err, rides){
   	if (err) {
       		throw err;
     	}
