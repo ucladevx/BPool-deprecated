@@ -47,14 +47,12 @@ module.exports = (function() {
 		locationHistory: Array,
 		timeHistory: Array,
 		driver: String
-
 	})
 	//History of drives of the user
 	var driveHist = new Schema({
 		destinationHistory: Array,
 		riders: Array
 	})
-
 	let User = mongoose.model('User', userSchema);
 	return User;
 }());
