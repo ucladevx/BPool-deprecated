@@ -11,14 +11,29 @@ var rideSchema = new mongoose.Schema({
   driver: { type: String, required: true }
 });
 
-rideSchema.statics.searchByFilters = function(source, destination, price, day, month, callback) {
+/*
+ Functionality- Searches for all rides that match passed in criteria
+                Destination - required
+                Source - required
+                Price - Maximum Price willing to pay (default 100)
+                Day - Day of Month looking to travel (1-31)
+                Month - Month looking to travel (1-12) - required
+ Usage:
+   Ride.searchByFilters("Destination", "Source", Price, Day, Month, (rides) => {
+     console.log(rides);
+   });
+   Pass in null if no filter provided
+Returns:
+  All rides in db that match criteria
+*/
+
+rideSchema.statics.searchByFilters = function(destination, source, price, day, month, callback) {
   var query =
   {
-    'destination' : destination
+    'destination' : destination,
+    'source': source
   }
-  if(source) {
-    query.source = source;
-  }
+
   var maxPrice
   if(price){
     maxPrice = price
@@ -42,7 +57,6 @@ rideSchema.statics.searchByFilters = function(source, destination, price, day, m
   else{
     startDay = 1;
     endDay = daysInMonth(month, date.getUTCFullYear());
-    console.log(endDay);
   }
 
   var startTime = new Date(date.getUTCFullYear(), month - 1, startDay);
@@ -51,13 +65,10 @@ rideSchema.statics.searchByFilters = function(source, destination, price, day, m
   Ride.find(query).where('price').lt(maxPrice).where('date').gt(startTime).lt(endTime).exec(function(err, rides){
     if(err)
       throw err;
-      console.log(rides);
-      return rides;
+      if (callback) {
+  			callback(rides);
+  		}
   })
-  // Ride.find({}).where('destination').eq(destination).exec(function(err, rides) {
-  //   if(err) throw err;
-  //   console.log(rides);
-  // });
 }
 
 rideSchema.remove = function(callback) {
