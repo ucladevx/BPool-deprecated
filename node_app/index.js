@@ -34,6 +34,7 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -67,13 +68,11 @@ app.listen(settings.port, () => {
 
 app.get('/', (req, res) => {
 	if (req.user) {
-		res.redirect('/user/' + req.user.id);
-		 // res.redirect('/ride/find');
-	} else {
-		res.render('home', {
-			title: "BPool"
-		});
+		console.log("User is signed in");
 	}
+	res.render('home', {
+		title: "BPool"
+	});
 });
 
 app.get('/ride/all', (req, res) => {
@@ -114,8 +113,7 @@ app.get('/user/:id', (req, res) => {
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
-	// res.redirect('/');
-	 res.redirect('/ride/find');
+	res.redirect('/ride/find');
 });
 
 app.post('/ride/find', (req, res) => {
@@ -124,5 +122,3 @@ app.post('/ride/find', (req, res) => {
 	let rideDestination = req.body.destination;
 	res.redirect('/ride/all');
 });
-
-
