@@ -15,6 +15,9 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
+// make this available to our users in our Node applications
+module.exports = User;
+
 app.use(express.static('public'));
 app.engine('hbs', exphbs({
 	extname: 'hbs',
@@ -82,6 +85,10 @@ app.get('/ride/new', (req, res) => {
 	res.render('create_ride');
 });
 
+app.get('/ride/find', (req, res) => {
+	res.render('rides-find');
+});
+
 app.post('/ride/create', (req, res) => {
 	let rideDate = req.body.date;
 	let rideTime = req.body.time;
@@ -108,4 +115,15 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
 	res.redirect('/');
 });
+
+app.post('/ride/find', (req, res) => {
+	let rideDate = req.body.date;
+	let rideOrigin = req.body.origin;
+	let rideDestination = req.body.destination;
+	
+	//TODO: redirect to ride/all
+
+	res.redirect('/');
+});
+
 
