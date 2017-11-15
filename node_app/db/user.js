@@ -2,8 +2,8 @@ module.exports = (function() {
 	let mongoose = require('mongoose');
 	var userSchema = new mongoose.Schema({
 		name: String,
- 	  	rideList: Array,
- 	  	driveList: Array,
+ 	  	rideHist: Array,
+ 	  	driveHist: Array,
  	  	pendingRides: Array,
  	  	location: String,
  	  	contactInfo: {
@@ -28,7 +28,8 @@ module.exports = (function() {
 		let user = new User({ 
 			name: name,  
 			location: location, 
-			email: email});
+			email: email
+		});
 		user.save(function (err, data) {
 			if (err) {
 				throw err;
@@ -41,6 +42,19 @@ module.exports = (function() {
 			return;
 		});
 	}
+	//History of rides of the user
+	var rideHist = new Schema({
+		locationHistory: Array,
+		timeHistory: Array,
+		driver: String
+
+	})
+	//History of drives of the user
+	var driveHist = new Schema({
+		destinationHistory: Array,
+		riders: Array
+	})
+
 	let User = mongoose.model('User', userSchema);
 	return User;
 }());
