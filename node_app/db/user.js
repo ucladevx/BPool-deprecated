@@ -2,8 +2,8 @@ module.exports = (function() {
 	let mongoose = require('mongoose');
 	var userSchema = new mongoose.Schema({
 		name: String,
- 	  	rideHist: Array,
- 	  	driveHist: Array,
+ 	  	rideHist: [{type: ObjectId, ref: 'ride'}],
+ 	  	driveHist: [{type: ObjectId, ref: 'drive'}],
  	  	pendingRides: Array,
  	  	location: String,
  	  	contactInfo: {
@@ -28,7 +28,9 @@ module.exports = (function() {
 		let user = new User({ 
 			name: name,  
 			location: location, 
-			email: email
+			email: email,
+			user.rideHist.push(ride),
+			user.driveHist.push(drive)
 		});
 		user.save(function (err, data) {
 			if (err) {
@@ -42,17 +44,6 @@ module.exports = (function() {
 			return;
 		});
 	}
-	//History of rides of the user
-	var rideHist = new Schema({
-		locationHistory: Array,
-		timeHistory: Array,
-		driver: String
-	})
-	//History of drives of the user
-	var driveHist = new Schema({
-		destinationHistory: Array,
-		riders: Array
-	})
 	let User = mongoose.model('User', userSchema);
 	return User;
 }());
