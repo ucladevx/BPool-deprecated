@@ -27,10 +27,10 @@ app.listen(settings.port, () => {
 
 app.get('/', (req, res) => {
 	res.render('home', {
-		title: "Home"
+		title: "BPool",
+		content: ""
 	});
 });
-
 app.get('/ride/new', (req, res) => {
 	res.render('create_ride');
 });
@@ -47,3 +47,14 @@ app.post('/ride/create', (req, res) => {
 	// TODO: Create and save Ride object to database
 	res.redirect('/');
 });
+
+app.get('/login', (req, res) => {
+	res.render('login', {
+		title: "Login",
+		content: "Please login with your Facebook"
+	});
+});
+app.post('/login', (req, res) => {
+	res.redirect('/');
+});
+=
