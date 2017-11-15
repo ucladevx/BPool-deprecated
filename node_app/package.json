@@ -17,6 +17,7 @@
       "express": "^4.16.2",
       "express3-handlebars": "^0.5.2",
       "mongoose": "^4.12.6",
-      "body-parser": "^1.18.2"
+      "body-parser": "^1.18.2",
+      "dateformat": "^3.0.2"
     }
 }

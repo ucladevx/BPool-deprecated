@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const exphbs = require('express3-handlebars');
 const bodyParser = require('body-parser');
+var dateFormat = require('dateformat');
 
 // Database Models
 const db = require('./db/db.js');
@@ -16,7 +17,13 @@ app.engine( 'hbs', exphbs({
 	extname: 'hbs',
 	defaultLayout: 'base',
 	layoutsDir: __dirname + '/views/layouts/',
-	partialsDir: __dirname + '/views/partials/'
+	partialsDir: __dirname + '/views/partials/',
+	helpers: {
+		// TODO make a more generic date formatter
+		formatDateMMDDYYYY: (dateObj) => {
+			return dateFormat(dateObj, "mmmm dS, yyyy");			
+		}
+	}
 }));
 app.set('view engine', 'hbs');
 
