@@ -12,29 +12,29 @@ function initialRides() {
     return [
         {
             origin: "Los Angeles",
-            destination: "San Diego",
-            price: 20,
+            destination: "Santa Monica",
+            price: 35,
             date: todayDate,
             driver: "Joe Bruin"
         },
         {
             origin: "Los Angeles",
             destination: "San Diego",
-            price: 20,
+            price: 15,
             date: todayDate,
             driver: "Joe Bruin"
         },
         {
             origin: "Los Angeles",
-            destination: "San Diego",
-            price: 20,
+            destination: "San Luis Obispo",
+            price: 50,
             date: todayDate,
             driver: "Joe Bruin"
         },
         {
             origin: "Los Angeles",
-            destination: "San Diego",
-            price: 20,
+            destination: "Long Beach",
+            price: 25,
             date: todayDate,
             driver: "Joe Bruin"
         }
