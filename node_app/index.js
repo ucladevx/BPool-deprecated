@@ -59,11 +59,10 @@ app.get('/', (req, res) => {
 		res.redirect('/user/' + req.user.id);
 	} else {
 		res.render('home', {
-			title: "Home"
+			title: "BPool"
 		});
 	}
 });
-
 app.get('/ride/new', (req, res) => {
 	res.render('create_ride');
 });
@@ -94,3 +93,4 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
 	res.redirect('/');
 });
+
