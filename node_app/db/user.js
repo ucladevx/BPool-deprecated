@@ -5,14 +5,14 @@ module.exports = (function() {
  	  	rideList: Array,
  	  	driveList: Array,
  	  	pendingRides: Array,
- 	  	location: String,
  	  	contactInfo: {
 			phone: Number,
 			email: String
  	  	},
  	  	generalInfo: {
 			age: Number,
-     		}
+			 },
+		profileId: Number
 	});
 	/*
 	* Functionality:
@@ -24,11 +24,8 @@ module.exports = (function() {
 	* Returns:
 	* 	- the actual User mongoDB object
 	*/
-	userSchema.statics.insert = function(name, age, location, email, callback) {
-		let user = new User({ 
-			name: name,  
-			location: location, 
-			email: email});
+	userSchema.statics.insert = function(name, age, email, profileId, callback) {
+		let user = new User({ name: name, age: age, email: email, profileId: profileId});
 		user.save(function (err, data) {
 			if (err) {
 				throw err;
@@ -41,6 +38,19 @@ module.exports = (function() {
 			return;
 		});
 	}
+
+	userSchema.statics.findByProfileId = (profileId, callback) => {
+		User.findOne({'profileId': profileId}, (err, user) => {
+			if (err) {
+				throw err;
+			}
+
+			if (callback) {
+				callback(user);
+			}
+		});
+	}
+
 	let User = mongoose.model('User', userSchema);
 	return User;
 }());
