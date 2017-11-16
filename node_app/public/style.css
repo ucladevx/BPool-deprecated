@@ -1,0 +1,37 @@
+.container {
+  padding-top: 100px;
+}
+
+.landing-container {
+  background: url(landing.jpg) no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  padding: 0 7%;
+  display: table;
+  margin: 0;
+  max-width: none;
+  height: 100vh;
+}
+
+.landing-description {
+  width: 40%;
+  padding: 20px;
+  color: white;
+  font-size: 32px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.brand-logo {
+  margin-left: 20px;
+}
+
+nav {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 5;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+}

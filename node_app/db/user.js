@@ -5,14 +5,14 @@ module.exports = (function() {
  	  	rideHist: [{type: ObjectId, ref: 'ride'}],
  	  	driveHist: [{type: ObjectId, ref: 'drive'}],
  	  	pendingRides: Array,
- 	  	location: String,
  	  	contactInfo: {
 			phone: Number,
 			email: String
  	  	},
  	  	generalInfo: {
 			age: Number,
-     		}
+			 },
+		profileId: Number
 	});
 	/*
 	* Functionality:
@@ -24,14 +24,8 @@ module.exports = (function() {
 	* Returns:
 	* 	- the actual User mongoDB object
 	*/
-	userSchema.statics.insert = function(name, age, location, email, callback) {
-		let user = new User({ 
-			name: name,  
-			location: location, 
-			email: email,
-			user.rideHist.push(ride),
-			user.driveHist.push(drive)
-		});
+	userSchema.statics.insert = function(name, age, email, profileId, callback) {
+		let user = new User({ name: name, age: age, email: email, profileId: profileId});
 		user.save(function (err, data) {
 			if (err) {
 				throw err;
@@ -44,6 +38,24 @@ module.exports = (function() {
 			return;
 		});
 	}
+	userSchema.statics.findByProfileId = (profileId, callback) => {
+		User.findOne({'profileId': profileId}, (err, user) => {
+			if (err) {
+				throw err;
+			}
+
+			if (callback) {
+				callback(user);
+			}
+		});
+	}
+	userSchema.statics.addRide = (rideHist, callback) => {
+		User.rideHist.push(ride);
+	}
+	userSchema.statics.addDrive = (driveHist, callback) => {
+		User.rideHist.push(drive);
+	}
+
 	let User = mongoose.model('User', userSchema);
 	return User;
 }());

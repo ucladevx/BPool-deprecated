@@ -1,0 +1,33 @@
+a# base/docker-compose.yml
+# Use this file to set up your containers.
+#
+# You need to select your backend and database(s):
+#   Uncomment the stack block(s) that you want to use
+#     Under 'links' choose the databases(s) you need and uncomment those lines
+#       Don't forget to uncomment 'links:' as well
+#   If you need databases, uncomment their respective blocks under 'services'
+#     e.g. If you need db_postgres and db_redis, uncomment those two lines under 'links'.
+#          Uncomment the "links:" line too. And uncomment the whole "db_postgres:" and
+#          "db_redis:" blocks
+# 
+# DO NOT UNCOMMENT ANY LINES THAT CONTAIN 'MARK:'
+# IF YOU'RE USING RAILS, ALSO UNCOMMENT THE 'vol_gems' BLOCK
+#
+#
+# Author: Nikhil Kansal
+# Version: 1.0.0
+# Date: 06/26/2017
+
+version: '2'
+services:
+   bpool:
+     image: 870583707350.dkr.ecr.us-west-1.amazonaws.com/bpool:latest
+     ports:
+       - "3000:3000"
+     links:
+       - db_mongo
+
+   db_mongo:
+     image: mongo  
+     ports:
+       - "27017:27017"
