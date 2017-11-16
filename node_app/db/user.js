@@ -3,7 +3,7 @@ module.exports = (function() {
 	var userSchema = new mongoose.Schema({
 		name: String,
  	  	rideHist: [{type: ObjectId, ref: 'ride'}],
- 	  	driveHist: [{type: ObjectId, ref: 'drive'}],
+ 	  	driveHist: [{type: ObjectId, ref: 'ride'}],
  	  	pendingRides: Array,
  	  	contactInfo: {
 			phone: Number,
@@ -49,13 +49,12 @@ module.exports = (function() {
 			}
 		});
 	}
-	userSchema.statics.addRide = (rideHist, callback) => {
+	userSchema.methods.addRide = (rideHist, callback) => {
 		User.rideHist.push(ride);
 	}
-	userSchema.statics.addDrive = (driveHist, callback) => {
-		User.rideHist.push(drive);
+	userSchema.methods.addDrive = (driveHist, callback) => {
+		User.driveHist.push(ride);
 	}
-
 	let User = mongoose.model('User', userSchema);
 	return User;
 }());
