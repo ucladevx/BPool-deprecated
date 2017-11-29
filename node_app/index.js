@@ -78,7 +78,7 @@ app.get('/', (req, res) => {
 });
 
 // Endpoint 
-app.get('/ride', (req, res) => {
+app.get('/ride/results', (req, res) => {
 	let date = new Date(req.query.date);
 	let origin = req.query.origin;
 	let destination = req.query.destination;
@@ -138,7 +138,7 @@ app.post('/ride/find', (req, res) => {
 	let rideDestination = req.body.destination;
 
 	res.redirect(url.format({
-		pathname: "/ride",
+		pathname: "/ride/results",
 		query: {
 			"date": rideDate,
 			"origin": rideOrigin,
