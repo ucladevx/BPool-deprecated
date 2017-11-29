@@ -15,17 +15,10 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
-Ride.insert("Source", "Destination", 13, new Date(), "Name",  (newRide) => {
-	console.log(newRide);
+Ride.findByRideId("5a1e4570103270000ff1c247", (ride) => {
+	//callback function
+	console.log(ride);
 });
-
-// Ride.getAll((rides) =>{
-// 	console.log(rides);
-// });
-//
-// Ride.findByRideId(5039949, (ride) => {
-// 	//callback function
-// });
 
 
 app.use(express.static('public'));
