@@ -39,7 +39,8 @@ module.exports = (function () {
 			}
 		});
 	}
-	rideSchema.statics.findByProfileId = (rideId, callback) => {
+	rideSchema.statics.findByRideId = (rideId, callback) => {
+		console.log("entering findByRideId");
 		Ride.findOne({'rideId': rideId}, (err, ride) => {
 			if (err) {
 				throw err;
@@ -47,6 +48,7 @@ module.exports = (function () {
 
 			if (callback) {
 				callback(ride);
+				console.log("entering findByRideId");
 			}
 		});
 	}
