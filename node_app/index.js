@@ -15,11 +15,9 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
-Ride.findByRideId("5a1e4570103270000ff1c247", (ride) => {
-	//callback function
-	console.log(ride);
-});
 
+// make this available to our users in our Node applications
+module.exports = User;
 
 app.use(express.static('public'));
 app.engine('hbs', exphbs({
@@ -37,6 +35,7 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -70,12 +69,11 @@ app.listen(settings.port, () => {
 
 app.get('/', (req, res) => {
 	if (req.user) {
-		res.redirect('/user/' + req.user.id);
-	} else {
-		res.render('home', {
-			title: "BPool"
-		});
+		console.log("User is signed in");
 	}
+	res.render('home', {
+		title: "BPool"
+	});
 });
 
 app.get('/ride/all', (req, res) => {
@@ -86,6 +84,10 @@ app.get('/ride/all', (req, res) => {
 
 app.get('/ride/new', (req, res) => {
 	res.render('create_ride');
+});
+
+app.get('/ride/find', (req, res) => {
+	res.render('rides-find');
 });
 
 app.post('/ride/create', (req, res) => {
@@ -112,5 +114,12 @@ app.get('/user/:id', (req, res) => {
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
-	res.redirect('/');
+	res.redirect('/ride/find');
+});
+
+app.post('/ride/find', (req, res) => {
+	let rideDate = req.body.date;
+	let rideOrigin = req.body.origin;
+	let rideDestination = req.body.destination;
+	res.redirect('/ride/all');
 });
