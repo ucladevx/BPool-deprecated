@@ -1,6 +1,8 @@
 // create a server and listen on settings.config.port
 const settings = require('./config.js');
 const express = require('express');
+const url = require('url');
+
 const app = express();
 const exphbs = require('express3-handlebars');
 const bodyParser = require('body-parser');
@@ -27,7 +29,7 @@ app.engine('hbs', exphbs({
 	helpers: {
 		// TODO make a more generic date formatter
 		formatDateMMDDYYYY: (dateObj) => {
-			return dateFormat(dateObj, "mmmm dS, yyyy");			
+			return dateFormat(dateObj, "mmmm dS, yyyy");
 		}
 	}
 }));
@@ -75,6 +77,17 @@ app.get('/', (req, res) => {
 	});
 });
 
+// Endpoint 
+app.get('/ride/results', (req, res) => {
+	let date = new Date(req.query.date);
+	let origin = req.query.origin;
+	let destination = req.query.destination;
+
+	Ride.searchByFilters(origin, destination, date, (rides) => {
+		res.render('all_rides', { rides: rides });
+	});
+});
+
 app.get('/ride/all', (req, res) => {
 	Ride.getAll((rides) => {
 		res.render('all_rides', { rides: rides });
@@ -98,7 +111,10 @@ app.post('/ride/create', (req, res) => {
 	let carNumSeats = req.body.carNumSeats;
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = req.body.price;
-	// TODO: Create and save Ride object to database
+
+	// TODO: Get driver; currently placeholder
+	Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, "some_user_id");
+
 	res.redirect('/');
 });
 
@@ -120,5 +136,13 @@ app.post('/ride/find', (req, res) => {
 	let rideDate = req.body.date;
 	let rideOrigin = req.body.origin;
 	let rideDestination = req.body.destination;
-	res.redirect('/ride/all');
+
+	res.redirect(url.format({
+		pathname: "/ride/results",
+		query: {
+			"date": rideDate,
+			"origin": rideOrigin,
+			"destination": rideDestination
+		}
+	}));
 });
