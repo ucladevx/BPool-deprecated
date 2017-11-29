@@ -39,7 +39,17 @@ module.exports = (function () {
 			}
 		});
 	}
+	rideSchema.statics.findByProfileId = (rideId, callback) => {
+		Ride.findOne({'rideId': rideId}, (err, ride) => {
+			if (err) {
+				throw err;
+			}
 
+			if (callback) {
+				callback(ride);
+			}
+		});
+	}
 	rideSchema.statics.getAll = (callback) => {
 		Ride.find({}, (err, rides) => {
 			if (err) {
@@ -50,7 +60,7 @@ module.exports = (function () {
 				callback(rides);
 			}
 		});
-	}	
+	}
 
 	let Ride = mongoose.model('Ride', rideSchema);
 	return Ride;

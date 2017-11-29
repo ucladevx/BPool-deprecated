@@ -15,6 +15,11 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
+Ride.findByProfileId(5039949, (ride) => {
+	//callback function
+});
+
+
 app.use(express.static('public'));
 app.engine('hbs', exphbs({
 	extname: 'hbs',
@@ -24,7 +29,7 @@ app.engine('hbs', exphbs({
 	helpers: {
 		// TODO make a more generic date formatter
 		formatDateMMDDYYYY: (dateObj) => {
-			return dateFormat(dateObj, "mmmm dS, yyyy");			
+			return dateFormat(dateObj, "mmmm dS, yyyy");
 		}
 	}
 }));
@@ -108,4 +113,3 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
 	res.redirect('/');
 });
-
