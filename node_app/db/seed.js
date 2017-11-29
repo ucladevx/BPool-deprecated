@@ -1,3 +1,5 @@
+// const moment = require('moment-timezone');
+
 const Ride = require('./ride.js');
 
 // Seed data for mock rides
@@ -9,6 +11,9 @@ for (let i = 0; i < seedRides.length; i++) {
 
 function initialRides() {
     let todayDate = new Date(); 
+    // TODO moment-timeline for timezone discrepancies
+    // let todayDate = moment.tz(new Date(), "America/Los_Angeles").format().toString();
+
     return [
         {
             origin: "Los Angeles",
