@@ -8,7 +8,7 @@ for (let i = 0; i < seedRides.length; i++) {
 }
 
 function initialRides() {
-    let todayDate = new Date();    
+    let todayDate = new Date(); 
     return [
         {
             origin: "Los Angeles",
@@ -37,6 +37,27 @@ function initialRides() {
             price: 25,
             date: todayDate,
             driver: "Joe Bruin"
+        },
+        {
+            origin: "UCLA",
+            destination: "Long Beach",
+            price: 22,
+            date: todayDate,
+            driver: "Joe Bruin"
+        },
+        {
+            origin: "UCLA",
+            destination: "San Diego",
+            price: 55,
+            date: todayDate,
+            driver: "Joe Bruin"
+        },
+        {
+            origin: "UCLA",
+            destination: "San Diego",
+            price: 50,
+            date: todayDate,
+            driver: "Josie Bruin"
         }
     ]
 };
