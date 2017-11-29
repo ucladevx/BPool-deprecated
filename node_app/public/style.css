@@ -3,35 +3,63 @@
 }
 
 .landing-container {
-  background: url(landing.jpg) no-repeat center center;
-  background-size: cover;
+
   width: 100%;
   padding: 0 7%;
   display: table;
   margin: 0;
   max-width: none;
   height: 100vh;
+  background-image: url("landing.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+
 }
 
 .landing-description {
   width: 40%;
   padding: 20px;
-  color: white;
   font-size: 32px;
   display: table-cell;
   vertical-align: middle;
 }
 
-.brand-logo {
-  margin-left: 20px;
+.landing-text h2,h3,a{
+  font-weight: 800;
+}
+
+.nav-wrapper {
+  padding-top: 10px;
+  padding-right: 30px;
+}
+
+.brand-logo svg {
+  margin-top: 10px;
+  height: 40px;
+  fill: #7e57c2;
+}
+
+#nav-mobile li a{
+  border-radius: 20px;
+}
+
+h3 {
+  margin-top: 50px;
+  font-size: 24px;
 }
 
 nav {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
   position: fixed;
   z-index: 5;
+  box-shadow: none;
+}
+
+.button {
+  color: #000000;
 }
 
 body {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Fira Sans', monospace;
 }
