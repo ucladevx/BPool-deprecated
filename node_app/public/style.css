@@ -35,7 +35,6 @@
 }
 
 .brand-logo svg {
-  /* margin-left: 20px; */
   margin-top: 10px;
   height: 40px;
   fill: #7e57c2;
@@ -52,7 +51,6 @@ h3 {
 
 nav {
   background-color: rgba(0, 0, 0, 0);
-  color: rgba(0, 0, 0, 0.8) !important;
   position: fixed;
   z-index: 5;
   box-shadow: none;
