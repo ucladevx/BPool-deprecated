@@ -23,7 +23,12 @@ module.exports = (function () {
 	  All rides in db that match criteria
 	*/
 	rideSchema.statics.searchByFilters = function (source, destination, date, callback) {
-		Ride.find({ '$where': 'this.date.toDateString() ==  "' + date.toDateString() + '"' }).where('source').eq(source).where('destination').eq(destination).exec(function (err, rides) {
+		var query = {};
+		//If date is not null, we can specify date in query, otherwise leave blank. 
+		if (!isNaN(date.getTime())) {  
+			query = { '$where': 'this.date.toDateString() ==  "' + date.toDateString() + '"' }
+	  	}
+		Ride.find(query).where('source').eq(source).where('destination').eq(destination).exec(function (err, rides) {
 			if (err) {
 				throw err;
 			}

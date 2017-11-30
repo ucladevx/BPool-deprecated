@@ -51,7 +51,15 @@ passport.use(new FacebookStrategy({
 	profileFields: ['id', 'displayName', 'email']
 },
 	function (accessToken, refreshToken, profile, done) {
-		// TODO save new user?
+		let userName = profile.displayName || null;
+		let profileId = profile.id;
+
+		User.findByProfileId(profileId, (user) => {
+			if (!user) {
+				User.insert(userName, profileId);
+			}
+		});
+
 		return done(null, profile);
 	}
 ));
@@ -94,7 +102,7 @@ app.get('/ride/all', (req, res) => {
 	});
 });
 
-app.get('/ride/new', (req, res) => {
+app.get('/ride/new', ensureAuthenticated, (req, res) => {
 	res.render('create_ride');
 });
 
@@ -112,8 +120,10 @@ app.post('/ride/create', (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = req.body.price;
 
-	// TODO: Get driver; currently placeholder
-	Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, "some_user_id");
+	User.findByProfileId(req.user.id, (user) => {
+		// TODO: Make a ride details page
+		Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, user.id);
+	});
 
 	res.redirect('/');
 });
@@ -136,7 +146,8 @@ app.get('/ride/:id', (req, res) => {
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
-	res.redirect('/ride/find');
+	res.redirect(req.session.returnTo || '/ride/find');
+	delete req.session.returnTo;
 });
 
 app.post('/ride/find', (req, res) => {
@@ -153,3 +164,12 @@ app.post('/ride/find', (req, res) => {
 		}
 	}));
 });
+
+function ensureAuthenticated(req, res, next) {
+	if (req.user) {
+		return next();
+	} else {
+		req.session.returnTo = req.path;		
+		res.redirect('/auth/facebook');
+	}
+}
