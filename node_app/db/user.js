@@ -2,8 +2,8 @@ module.exports = (function() {
 	let mongoose = require('mongoose');
 	var userSchema = new mongoose.Schema({
 		name: String,
- 	  	rideList: Array,
- 	  	driveList: Array,
+		rideHist: [{type: ObjectId, ref: 'ride'}],
+		driveHist: [{type: ObjectId, ref: 'ride'}],
  	  	pendingRides: Array,
 		profileId: Number
 	});
@@ -43,6 +43,16 @@ module.exports = (function() {
 			}
 		});
 	}
+	
+	userSchema.methods.addRide = function(rideId, callback) {
+		User.findOneandUpdate( {"profileId" : profileId}, {$push: { rideHist: rideId} 
+		});
+ 	}
+
+	userSchema.methods.addDrive = function(driveId, callback) {
+		User.findOneandUpdate( {"profileId" : profileId}, {$push: { driveHist: driveId} 
+		});
+ 	}
 
 	let User = mongoose.model('User', userSchema);
 	return User;
