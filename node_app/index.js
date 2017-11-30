@@ -17,7 +17,6 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
-
 // make this available to our users in our Node applications
 module.exports = User;
 
@@ -114,7 +113,9 @@ app.post('/ride/create', (req, res) => {
 	let ridePrice = req.body.price;
 
 	// TODO: Get driver; currently placeholder
-	Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, "some_user_id");
+	Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, "some_user_id", (newRide)=>{
+		console.log(newRide);
+	});
 
 	res.redirect('/');
 });
@@ -128,11 +129,12 @@ app.get('/user/:id', (req, res) => {
 	res.send(req.params.id);
 });
 
-// TODO Ride Page
+// Ride Page Endpoint
 app.get('/ride/:id', (req, res) => {
-	//var ride = Ride.
-	//res.render('all_rides', { rides: rides })
-})
+	Ride.findByRideId(String(req.params.id), (rides)=>{
+		res.render('all_rides', { rides: rides });
+	});
+});
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
