@@ -1,11 +1,15 @@
-<div class="container">
+<div class="ride-create form container grey lighten-5">
     <div class="row">
-        <form class="col m6 offset-m3 l8 offset-l2" method="POST" action="/ride/create">
+        <div class="col s12 m6 offset-m3 l8 offset-l2 center-align">
+            <h2>Create a ride</h2>
+            <h3>What is your trip going to look like?</h3>
+        </div>
+        <form class="col s12 m6 offset-m3 l8 offset-l2" method="POST" action="/ride/create">
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">date_range</i>
                     <input type="text" class="datepicker" id="date" name="date">
-                    <label for="date">Date</label>
+                    <label for="date">Date of trip</label>
                 </div>
             </div>
 
@@ -20,10 +24,25 @@
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">person_pin</i>
-                    <input type="text" class="validate" id="origin" name="origin">
+                    {{!-- <input type="text" class="validate" id="origin" name="origin"> --}}
+                    <select name="origin">
+                        <option value="">Choose your origin</option>
+                        <option value="UCLA">UCLA</option>
+                    </select>
                     <label for="origin">Origin</label>
                 </div>
             </div>
+
+            {{!-- <div class="row">
+				<div class="input-field">
+					<i class="material-icons prefix">person_pin</i>
+					<select name="origin">
+						<option value="">Choose your origin</option>
+						<option value="UCLA">UCLA</option>
+					</select>
+					<label for="origin">Origin</label>
+				</div>
+			</div> --}}
 
             <div class="row">
                 <div class="input-field">
@@ -42,7 +61,7 @@
                 <div class="input-field inline">
                     <i class="material-icons prefix">airline_seat_recline_normal</i>
                     <input type="number" class="validate" id="carNumSeats" name="carNumSeats">
-                    <label for="carNumSeats">Available Seats</label>
+                    <label for="carNumSeats">Available Passenger Seats</label>
                 </div>
             </div>
 
@@ -50,7 +69,7 @@
                 <div class="input-field">
                     <i class="material-icons prefix">textsms</i>
                     <textarea class="materialize-textarea" id="rideDescription" name="rideDescription"></textarea>
-                    <label for="rideDescription">Ride Description</label>
+                    <label for="rideDescription">Details about your ride</label>
                 </div>
             </div>
 
@@ -63,7 +82,7 @@
                 </div>
             </div>
 
-            <button class="btn waves-effect waves-light" type="submit" name="action">Create
+            <button class="right button waves-effect waves-light btn-large deep-purple accent-2 white-text" type="submit" name="action">Create
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -91,5 +110,9 @@
         canceltext: 'Cancel',
         autoclose: false,
         ampmclickable: true
+    });
+
+    $(document).ready(function () {
+        $('select').material_select();
     });
 </script>
