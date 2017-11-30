@@ -2,8 +2,8 @@ module.exports = (function() {
 	let mongoose = require('mongoose');
 	var userSchema = new mongoose.Schema({
 		name: String,
-		rideHist: [{type: ObjectId, ref: 'ride'}],
-		driveHist: [{type: ObjectId, ref: 'ride'}],
+		rideHist: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ride'}],
+		driveHist: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ride'}],
  	  	pendingRides: Array,
 		profileId: Number
 	});
