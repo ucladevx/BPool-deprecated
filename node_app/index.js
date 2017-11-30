@@ -113,9 +113,7 @@ app.post('/ride/create', (req, res) => {
 	let ridePrice = req.body.price;
 
 	// TODO: Get driver; currently placeholder
-	Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, "some_user_id", (newRide)=>{
-		console.log(newRide);
-	});
+	Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, "some_user_id");
 
 	res.redirect('/');
 });
