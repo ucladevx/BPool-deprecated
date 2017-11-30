@@ -17,6 +17,7 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
+
 // make this available to our users in our Node applications
 module.exports = User;
 
