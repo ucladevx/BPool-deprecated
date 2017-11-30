@@ -121,19 +121,12 @@ app.post('/ride/create', (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = req.body.price;
 
-	// TODO: Get driver; currently placeholder
-	Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, "some_user_id");
+	User.findByProfileId(req.user.id, (user) => {
+		// TODO: Make a ride details page
+		Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, user.id);
+	});
 
 	res.redirect('/');
-});
-
-app.get('/error', (req, res) => {
-	res.send("There was an error.");
-});
-
-// TODO make DB query for user after saving
-app.get('/user/:id', (req, res) => {
-	res.send(req.params.id);
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
