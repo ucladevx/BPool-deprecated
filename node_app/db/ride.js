@@ -23,9 +23,10 @@ module.exports = (function () {
 	*/
 	rideSchema.statics.searchByFilters = function (source, destination, date, callback) {
 		var query = {};
-		if (!isNaN( date.getTime())) {  // d.valueOf() could also work
+		//If date is not null, we can specify date in query, otherwise leave blank. 
+		if (!isNaN(date.getTime())) {  
 			query = { '$where': 'this.date.toDateString() ==  "' + date.toDateString() + '"' }
-	  }
+	  	}
 		Ride.find(query).where('source').eq(source).where('destination').eq(destination).exec(function (err, rides) {
 			if (err) {
 				throw err;
