@@ -77,7 +77,7 @@ app.get('/', (req, res) => {
 	});
 });
 
-// Endpoint 
+// Endpoint
 app.get('/ride/results', (req, res) => {
 	let date = new Date(req.query.date);
 	let origin = req.query.origin;
@@ -126,6 +126,12 @@ app.get('/error', (req, res) => {
 app.get('/user/:id', (req, res) => {
 	res.send(req.params.id);
 });
+
+// TODO Ride Page
+app.get('/ride/:id', (req, res) => {
+	//var ride = Ride.
+	//res.render('all_rides', { rides: rides })
+})
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
