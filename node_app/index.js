@@ -17,7 +17,6 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
-
 // make this available to our users in our Node applications
 module.exports = User;
 
@@ -86,7 +85,7 @@ app.get('/', (req, res) => {
 	});
 });
 
-// Endpoint 
+// Endpoint
 app.get('/ride/results', (req, res) => {
 	let date = new Date(req.query.date);
 	let origin = req.query.origin;
@@ -127,6 +126,22 @@ app.post('/ride/create', (req, res) => {
 	});
 
 	res.redirect('/');
+});
+
+app.get('/error', (req, res) => {
+	res.send("There was an error.");
+});
+
+// TODO make DB query for user after saving
+app.get('/user/:id', (req, res) => {
+	res.send(req.params.id);
+});
+
+// Ride Page Endpoint
+app.get('/ride/:id', (req, res) => {
+	Ride.findByRideId(String(req.params.id), (rides)=>{
+		res.render('all_rides', { rides: rides });
+	});
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
