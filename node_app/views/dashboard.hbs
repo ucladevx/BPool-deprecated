@@ -1,0 +1,19 @@
+<div class="container">
+	<div class="row">
+	    <h3>Upcoming Rides</h3>
+	    <div class="row">
+	        {{#each rides}} 
+	            {{> dash_ride_card this }} 
+	        {{/each}}
+	    </div>
+	</div>
+	<div class="row">
+	    <h3>Past Rides</h3>
+	    <div class="row">
+	        {{#each rides}} 
+	            {{> dash_ride_card this }} 
+	        {{/each}}
+	    </div>
+	</div>
+</div>
+
