@@ -2,8 +2,8 @@ module.exports = (function() {
 	let mongoose = require('mongoose');
 	var userSchema = new mongoose.Schema({
 		name: String,
- 	  	rideList: Array,
- 	  	driveList: Array,
+ 	  	rideHist: [{type: ObjectId, ref: 'ride'}],
+ 	  	driveHist: [{type: ObjectId, ref: 'ride'}],
  	  	pendingRides: Array,
 		profileId: Number
 	});
@@ -31,7 +31,6 @@ module.exports = (function() {
 			return;
 		});
 	}
-
 	userSchema.statics.findByProfileId = (profileId, callback) => {
 		User.findOne({'profileId': profileId}, (err, user) => {
 			if (err) {
@@ -43,7 +42,12 @@ module.exports = (function() {
 			}
 		});
 	}
-
+	userSchema.methods.addRide = (rideHist, callback) => {
+		User.rideHist.push(ride);
+	}
+	userSchema.methods.addDrive = (driveHist, callback) => {
+		User.driveHist.push(ride);
+	}
 	let User = mongoose.model('User', userSchema);
 	return User;
 }());
