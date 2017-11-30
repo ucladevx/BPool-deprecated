@@ -30,7 +30,7 @@ module.exports = (function() {
 			if (err) {
 				throw err;
 			}
-			
+
 			if (callback) {
 				callback(user);
 			}

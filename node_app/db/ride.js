@@ -1,5 +1,6 @@
 module.exports = (function () {
 	let mongoose = require('mongoose');
+	//let ObjectId = require('mongodb').ObjectId;
 
 	// create a schema
 	var rideSchema = new mongoose.Schema({
@@ -58,6 +59,28 @@ module.exports = (function () {
 				callback(ride);
 			}
 			return;
+		});
+	}
+
+	/*
+	* Functionality:
+	* 	- finds rides based on id given
+	* Usage:
+	* 	Ride.findByRideId("5a1e4570103270000ff1c247", (ride) => {
+	*		console.log(ride);
+	* 	});
+	* Returns:
+	* 	- the actual Ride mongoDB object you're searching for
+	*/
+	rideSchema.statics.findByRideId = (rideId, callback) => {
+		Ride.findOne({_id: rideId}, (err, ride) => {
+			if (err) {
+				throw err;
+			}
+			if (callback) {
+				//console.log(ride);
+				callback(ride);
+			}
 		});
 	}
 
