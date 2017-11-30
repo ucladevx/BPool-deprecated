@@ -51,8 +51,16 @@ passport.use(new FacebookStrategy({
 	profileFields: ['id', 'displayName', 'email']
 },
 	function (accessToken, refreshToken, profile, done) {
-		// TODO save new user?
-		return done(null, profile);
+		let userName = profile.displayName || null;
+		let profileId = profile.id;
+
+		User.findByProfileId(profileId, (user) => {
+			if (!user) {
+				User.insert(userName, profileId);
+			}
+		});
+
+		return done(null, profile);		
 	}
 ));
 

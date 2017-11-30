@@ -5,13 +5,6 @@ module.exports = (function() {
  	  	rideList: Array,
  	  	driveList: Array,
  	  	pendingRides: Array,
- 	  	contactInfo: {
-			phone: Number,
-			email: String
- 	  	},
- 	  	generalInfo: {
-			age: Number,
-			 },
 		profileId: Number
 	});
 	/*
@@ -24,8 +17,8 @@ module.exports = (function() {
 	* Returns:
 	* 	- the actual User mongoDB object
 	*/
-	userSchema.statics.insert = function(name, age, email, profileId, callback) {
-		let user = new User({ name: name, age: age, email: email, profileId: profileId});
+	userSchema.statics.insert = function(name, profileId, callback) {
+		let user = new User({ name: name, profileId: profileId});
 		user.save(function (err, data) {
 			if (err) {
 				throw err;
