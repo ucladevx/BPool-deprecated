@@ -60,7 +60,7 @@ passport.use(new FacebookStrategy({
 			}
 		});
 
-		return done(null, profile);		
+		return done(null, profile);
 	}
 ));
 
@@ -102,7 +102,7 @@ app.get('/ride/all', (req, res) => {
 	});
 });
 
-app.get('/ride/new', (req, res) => {
+app.get('/ride/new', ensureAuthenticated, (req, res) => {
 	res.render('create_ride');
 });
 
@@ -137,7 +137,8 @@ app.get('/user/:id', (req, res) => {
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
-	res.redirect('/ride/find');
+	res.redirect(req.session.returnTo || '/ride/find');
+	delete req.session.returnTo;
 });
 
 app.post('/ride/find', (req, res) => {
@@ -154,3 +155,12 @@ app.post('/ride/find', (req, res) => {
 		}
 	}));
 });
+
+function ensureAuthenticated(req, res, next) {
+	if (req.user) {
+		return next();
+	} else {
+		req.session.returnTo = req.path;		
+		res.redirect('/auth/facebook');
+	}
+}
