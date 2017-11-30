@@ -45,12 +45,18 @@ module.exports = (function() {
 	}
 	
 	userSchema.methods.addRide = function(rideId, callback) {
-		User.findOneandUpdate( {"profileId" : profileId}, {$push: { rideHist: rideId} 
+		User.findOneandUpdate( {"profileId" : profileId}, {$push: { rideHist: rideId}
+			if (callback){
+			callback(rideId);
+			}
 		});
  	}
 
 	userSchema.methods.addDrive = function(driveId, callback) {
 		User.findOneandUpdate( {"profileId" : profileId}, {$push: { driveHist: driveId} 
+			if (callback){
+			callback(driveId);
+			}
 		});
  	}
 
