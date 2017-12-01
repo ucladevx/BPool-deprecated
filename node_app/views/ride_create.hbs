@@ -32,11 +32,12 @@
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">person_pin</i>
-                    <select name="origin">
-                        <option value="">Choose your origin</option>
-                        <option value="UCLA">UCLA</option>
-                    </select>
-                    <label for="origin">Origin</label>
+                    {{#if ride}}
+                    <input type="text" class="validate" id="origin" name="origin" value="{{ride.source}}">
+                    {{else}}
+                    <input type="text" class="validate" id="origin" name="origin">
+                    {{/if}}
+                    <label for="origin">Choose your origin</label>                    
                 </div>
             </div>
 
@@ -68,8 +69,8 @@
                     <input type="number" class="validate" id="carNumSeats" name="carNumSeats" value="{{ride.numSeats}}">
                     {{else}}
                     <input type="number" class="validate" id="carNumSeats" name="carNumSeats">
-                    <label for="carNumSeats">Available Passenger Seats</label>
                     {{/if}}
+                    <label for="carNumSeats">Available Passenger Seats</label>
                 </div>
             </div>
 
