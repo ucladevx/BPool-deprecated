@@ -6,7 +6,7 @@ const url = require('url');
 const app = express();
 const exphbs = require('express3-handlebars');
 const bodyParser = require('body-parser');
-const dateFormat = require('dateformat');
+const datejs = require('datejs');
 const session = require('express-session');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
@@ -28,8 +28,13 @@ app.engine('hbs', exphbs({
 	partialsDir: __dirname + '/views/partials/',
 	helpers: {
 		// TODO make a more generic date formatter
-		formatDateMMDDYYYY: (dateObj) => {
-			return dateFormat(dateObj, "mmmm dS, yyyy");
+		formatDate: (dateObj) => {
+			// DateJS's custom "dddd, MMMM dd, yyyy" date format
+			return dateObj.toString('D');
+		},
+		formatTime: (dateObj) => {
+			// DateJS's custom "h:mm tt" date format		
+			return dateObj.toString('t');
 		}
 	}
 }));
@@ -103,7 +108,10 @@ app.get('/ride/all', (req, res) => {
 });
 
 app.get('/ride/new', ensureAuthenticated, (req, res) => {
-	res.render('ride_create');
+	res.render('ride_create', {
+		actionText: 'Create',
+		actionEndpoint: '/ride/create'
+	});
 });
 
 app.get('/ride/find', (req, res) => {
@@ -116,22 +124,32 @@ app.get('/dashboard', (req, res) => {
 	});
 });
 
+app.get('/ride/edit/:id', (req, res) => {
+	let rideId = req.params.id;
+	Ride.findByRideId(rideId, (ride) => {
+		res.render('create_ride', {
+			ride: ride,
+			actionText: 'Edit',
+			actionEndpoint: '/' // TODO fill in correct edit POST endpoint
+		});
+	});
+});
+
 app.post('/ride/create', (req, res) => {
-	let rideDate = req.body.date;
+	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
+	let rideTimestamp = rideDate.at(rideTime);
 	let rideOrigin = req.body.origin;
 	let rideDestination = req.body.destination;
 	let carModel = req.body.carModel;
-	let carNumSeats = req.body.carNumSeats;
+	let carNumSeats = parseInt(req.body.carNumSeats);
 	let rideDescription = req.body.rideDescription;
-	let ridePrice = req.body.price;
+	let ridePrice = parseFloat(req.body.price);
 
 	User.findByProfileId(req.user.id, (user) => {
-		// TODO: Make a ride details page
-		Ride.insert(rideOrigin, rideDestination, ridePrice, rideDate, user.id);
+		Ride.insert(carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);
+		res.redirect('/');
 	});
-
-	res.redirect('/');
 });
 
 // Ride Page Endpoint
@@ -166,7 +184,7 @@ function ensureAuthenticated(req, res, next) {
 	if (req.user) {
 		return next();
 	} else {
-		req.session.returnTo = req.path;		
+		req.session.returnTo = req.path;
 		res.redirect('/auth/facebook');
 	}
 }

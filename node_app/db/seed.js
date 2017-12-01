@@ -1,4 +1,5 @@
 // const moment = require('moment-timezone');
+const datejs = require('datejs');
 
 const Ride = require('./ride.js');
 
@@ -6,63 +7,46 @@ const Ride = require('./ride.js');
 let seedRides = initialRides();
 for (let i = 0; i < seedRides.length; i++) {
     let ride = seedRides[i];
-    Ride.insert(ride.origin, ride.destination, ride.price, ride.date, ride.driver);    
+    Ride.insert(ride.carModel, ride.description, ride.destination, ride.driver, ride.carNumSeats, ride.price, ride.origin, ride.timestamp, (newRide) => {
+        console.log(newRide);
+    });
 }
 
 function initialRides() {
-    let todayDate = new Date(); 
+    let date = Date.today().at("6:15pm");
     // TODO moment-timeline for timezone discrepancies
     // let todayDate = moment.tz(new Date(), "America/Los_Angeles").format().toString();
 
     return [
-        {
-            origin: "Los Angeles",
-            destination: "Santa Monica",
-            price: 35,
-            date: todayDate,
-            driver: "Joe Bruin"
+        { 
+            timestamp: date,
+            origin: 'UCLA',
+            destination: 'Santa Monica',
+            carModel: 'Toyota Prius',
+            carNumSeats: 4,
+            description: 'Carpool when I go to work',
+            price: 13, 
+            driver: 'Joe Bruin'
         },
-        {
-            origin: "Los Angeles",
-            destination: "San Diego",
-            price: 15,
-            date: todayDate,
-            driver: "Joe Bruin"
+        { 
+            timestamp: date,
+            origin: 'UCLA',
+            destination: 'San Diego',
+            carModel: 'Toyota Prius',
+            carNumSeats: 4,
+            description: 'Carpool when I go to work',
+            price: 30,
+            driver: 'Joe Bruin'
         },
-        {
-            origin: "Los Angeles",
-            destination: "San Luis Obispo",
-            price: 50,
-            date: todayDate,
-            driver: "Joe Bruin"
-        },
-        {
-            origin: "Los Angeles",
-            destination: "Long Beach",
-            price: 25,
-            date: todayDate,
-            driver: "Joe Bruin"
-        },
-        {
-            origin: "UCLA",
-            destination: "Long Beach",
-            price: 22,
-            date: todayDate,
-            driver: "Joe Bruin"
-        },
-        {
-            origin: "UCLA",
-            destination: "San Diego",
-            price: 55,
-            date: todayDate,
-            driver: "Joe Bruin"
-        },
-        {
-            origin: "UCLA",
-            destination: "San Diego",
-            price: 50,
-            date: todayDate,
-            driver: "Josie Bruin"
+        { 
+            timestamp: date,
+            origin: 'UCLA',
+            destination: 'Santa Barbara',
+            carModel: 'Toyota Prius',
+            carNumSeats: 4,
+            description: 'Carpool when I go to work',
+            price: 20,
+            driver: 'Joe Bruin'
         }
     ]
 };
