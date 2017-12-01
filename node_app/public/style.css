@@ -1,9 +1,43 @@
-.container {
-  padding-top: 100px;
+/*GLOBAL STYLES*/
+body {
+  font-family: 'Fira Sans', monospace;
 }
 
-.landing-container {
+h3 {
+  font-size: 24px;
+}
 
+.container {
+  padding-top: 100px;
+  width: 100vw;
+  height: 100vh;
+}
+
+/*NAVIGATION*/
+nav {
+  background-color: rgba(0, 0, 0, 0);
+  position: fixed;
+  z-index: 5;
+  box-shadow: none;
+}
+
+.nav-wrapper {
+  padding: 10px 30px;
+}
+
+.brand-logo svg {
+  margin-top: 10px;
+  margin-left: 10px;
+  height: 30px;
+  fill: #7c4dff;
+}
+
+#nav-mobile li a{
+  border-radius: 20px;
+}
+
+/*LANDING PAGE*/
+.landing {
   width: 100%;
   padding: 0 7%;
   display: table;
@@ -14,7 +48,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center bottom;
-
 }
 
 .landing-description {
@@ -29,37 +62,17 @@
   font-weight: 800;
 }
 
-.nav-wrapper {
-  padding-top: 10px;
-  padding-right: 30px;
-}
 
-.brand-logo svg {
-  margin-top: 10px;
-  height: 40px;
-  fill: #7e57c2;
-}
-
-#nav-mobile li a{
-  border-radius: 20px;
-}
-
-h3 {
+.landing-text h3 {
   margin-top: 50px;
-  font-size: 24px;
 }
 
-nav {
-  background-color: rgba(0, 0, 0, 0);
-  position: fixed;
-  z-index: 5;
-  box-shadow: none;
+/*FORM UI*/ 
+.form h2,h3 {
+  text-align: left;
+  font-weight: bold;
 }
 
-.button {
-  color: #000000;
-}
-
-body {
-  font-family: 'Fira Sans', monospace;
+.form button {
+  font-weight: 800;  
 }

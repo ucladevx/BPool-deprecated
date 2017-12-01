@@ -1,59 +1,51 @@
 <style>
 	a { color: inherit; } 
 </style>
-<div class="container">
+<div class="ride-find form container">
     <div class="row">
     	<div class="valign-wrapper">
-	    	<div class="col m6 offset-m3 l8 offset-l2 center-align">
+	    	<div class="col s12 m6 offset-m3 l8 offset-l2 center-align">
 	    		<h2>Find a ride</h2>
+				<h3>Currently we only support UCLA as an origin. Check back later for more locations!</h3>
 	    	</div>
+		</div>
+		<form class="col s12 m6 offset-m3 l8 offset-l2" method="POST" action="/ride/find">
 
-	    	</div>
-	        <form class="col m6 offset-m3 l8 offset-l2" method="POST" action="/ride/find">
-	                         
-<!-- 	            <div class="row">
-	                <div class="input-field">
-	                    <i class="material-icons prefix">person_pin</i>
-	                    <input type="text" class="validate" id="origin" name="origin">
-	                    <label for="origin">Origin</label>
-	                </div>
-	            </div> -->
-
-	            <div class="row">
-		            <div class="input-field">
-		            	<i class="material-icons prefix">person_pin</i>
-					    <select name="origin">
-					      <option value="" disabled selected>Choose your origin</option>
-					      <option value="UCLA">UCLA</option>
-					    </select>
-					    <label for="origin">Origin</label>
-					</div>
+			<div class="row">
+				<div class="input-field">
+					<i class="material-icons prefix">person_pin</i>
+					<select name="origin">
+						<option value="">Choose your origin</option>
+						<option value="UCLA">UCLA</option>
+					</select>
+					<label for="origin">Origin</label>
 				</div>
+			</div>
 
-	            <div class="row">
-	                <div class="input-field">
-	                    <i class="material-icons prefix">pin_drop</i>
-	                    <input type="text" class="validate" id="destination" name="destination">
-	                    <label for="destination">Destination</label>
-	                </div>
-	            </div>
+			<div class="row">
+				<div class="input-field">
+					<i class="material-icons prefix">pin_drop</i>
+					<input type="text" class="validate" id="destination" name="destination">
+					<label for="destination">Destination</label>
+				</div>
+			</div>
 
-	            <div class="row">
-	                <div class="input-field">
-	                    <i class="material-icons prefix">date_range</i>
-	                    <input type="text" class="datepicker" id="date" name="date">
-	                    <label for="date">Date</label>
-	                </div>
-	            </div>
+			<div class="row ">
+				<div class="input-field">
+					<i class="material-icons prefix">date_range</i>
+					<input type="text" class="datepicker" id="date" name="date">
+					<label for="date">Date</label>
+				</div>
+			</div>
 
-	            <button class="btn waves-effect waves-light" type="submit" name="action">
-	            	Find
-	                <i class="material-icons right">search</i>
-	            </button>
-	        </form>
-	    </div>
-    </div>
+			<button class="right button waves-effect waves-light btn-large deep-purple accent-2 white-text" type="submit" name="action">
+				Find
+				<i class="material-icons right">search</i>
+			</button>
+		</form>
+	</div>
 </div>
+
 
 <script>
     $('.datepicker').pickadate({
