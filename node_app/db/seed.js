@@ -7,9 +7,7 @@ const Ride = require('./ride.js');
 let seedRides = initialRides();
 for (let i = 0; i < seedRides.length; i++) {
     let ride = seedRides[i];
-    Ride.insert(ride.carModel, ride.description, ride.destination, ride.driver, ride.carNumSeats, ride.price, ride.origin, ride.timestamp, (newRide) => {
-        console.log(newRide);
-    });
+    Ride.insert(ride.carModel, ride.description, ride.destination, ride.driver, ride.carNumSeats, ride.price, ride.origin, ride.timestamp);
 }
 
 function initialRides() {

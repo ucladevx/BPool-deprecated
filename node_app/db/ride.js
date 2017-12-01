@@ -95,7 +95,6 @@ module.exports = (function () {
 				throw err;
 			}
 			if (callback) {
-				//console.log(ride);
 				callback(ride);
 			}
 		});
