@@ -9,7 +9,7 @@ h3 {
 
 .container {
   padding-top: 100px;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 }
 
