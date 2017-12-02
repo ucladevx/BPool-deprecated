@@ -92,22 +92,22 @@ app.get('/ride/results', (req, res) => {
 	let destination = req.query.destination;
 
 	Ride.searchByFilters(origin, destination, date, (rides) => {
-		res.render('all_rides', { rides: rides });
+		res.render('ride_all', { rides: rides });
 	});
 });
 
 app.get('/ride/all', (req, res) => {
 	Ride.getAll((rides) => {
-		res.render('all_rides', { rides: rides });
+		res.render('ride_all', { rides: rides });
 	});
 });
 
 app.get('/ride/new', ensureAuthenticated, (req, res) => {
-	res.render('create_ride');
+	res.render('ride_create');
 });
 
 app.get('/ride/find', (req, res) => {
-	res.render('rides-find');
+	res.render('ride_find');
 });
 
 app.post('/ride/create', (req, res) => {
@@ -128,19 +128,10 @@ app.post('/ride/create', (req, res) => {
 	res.redirect('/');
 });
 
-app.get('/error', (req, res) => {
-	res.send("There was an error.");
-});
-
-// TODO make DB query for user after saving
-app.get('/user/:id', (req, res) => {
-	res.send(req.params.id);
-});
-
 // Ride Page Endpoint
 app.get('/ride/:id', (req, res) => {
 	Ride.findByRideId(String(req.params.id), (rides)=>{
-		res.render('all_rides', { rides: rides });
+		res.render('ride_all', { rides: rides });
 	});
 });
 
