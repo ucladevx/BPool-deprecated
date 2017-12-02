@@ -1,10 +1,8 @@
-module.exports = (function() {
+module.exports = (function () {
 	let mongoose = require('mongoose');
 	var userSchema = new mongoose.Schema({
 		name: String,
- 	  	rideList: Array,
- 	  	driveList: Array,
- 	  	pendingRides: Array,
+		rides: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ride' }],
 		profileId: Number
 	});
 	/*
@@ -33,7 +31,7 @@ module.exports = (function() {
 	}
 
 	userSchema.statics.findByProfileId = (profileId, callback) => {
-		User.findOne({'profileId': profileId}, (err, user) => {
+		User.findOne({ 'profileId': profileId }, (err, user) => {
 			if (err) {
 				throw err;
 			}
@@ -42,6 +40,18 @@ module.exports = (function() {
 				callback(user);
 			}
 		});
+	}
+
+	userSchema.methods.addRide = function (ride, callback) {
+		User.findOneAndUpdate(
+			{ "profileId": this.profileId },
+			{ "$push": { "rides": ride._id } },
+			{ safe: true, upsert: true, new: true },
+			(err, user) => {
+				if (callback) {
+					callback(user);
+				}
+			});
 	}
 
 	let User = mongoose.model('User', userSchema);
