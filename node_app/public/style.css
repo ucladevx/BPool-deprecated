@@ -76,3 +76,29 @@ nav {
 .form button {
   font-weight: 800;  
 }
+
+body {
+  font-family: 'Fira Sans', monospace;
+}
+
+ul{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.dash-card-dim {
+  height: 150px;
+}
+
+.price {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+}
+
+.more {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}

@@ -1,17 +1,17 @@
 <div class="col s12 m6">
-    <div class="card horizontal deep-purple darken-1">
-<!--         <div class="col s3 white ">
-            <div class="row center-align">
-                <h3>Nov 29</h3>
-            </div>
-        </div> -->
+    <div class="card horizontal dash-card-dim">
         <div class="card-stacked">
             <div class="card-content">
-                <p>{{formatDateMMDDYYYY this.date}} </p>
-                <span class="card-title activator white-text text-darken-4">
-                    <strong>{{this.source}}</strong> to <strong>{{this.destination}}</strong>
-                    <i class="material-icons right">more_vert</i>
+                <p><b>{{formatDateMMDDYYYY this.date}} </b></p>
+                <span class="card-title deep-purple-text" style="font-size:35px; padding-top:10px">
+                    <strong>{{this.source}}</strong> <span class="black-text">to</span> <strong>{{this.destination}}</strong>
                 </span>
+                <div class="price">
+                    <b>${{this.price}}</b>
+                </div>
+                <div class="activator more">
+                    <i class="material-icons right">more_vert</i>
+                </div>
             </div>
         </div>
         <div class="card-reveal">
@@ -20,7 +20,7 @@
                 Ride Details
             </span>
             <p>Driver: {{this.driver}}</p>
-            <p>Price: ${{this.price}}</p>
+            <p>Rider(s): You</p>
         </div>
     </div>
 </div>
