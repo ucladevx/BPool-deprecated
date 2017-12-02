@@ -110,6 +110,12 @@ app.get('/ride/find', (req, res) => {
 	res.render('ride_find');
 });
 
+app.get('/dashboard', (req, res) => {
+	Ride.getAll((rides) => {
+		res.render('dashboard', {rides: rides});
+	});
+});
+
 app.post('/ride/create', (req, res) => {
 	let rideDate = req.body.date;
 	let rideTime = req.body.time;
@@ -164,3 +170,4 @@ function ensureAuthenticated(req, res, next) {
 		res.redirect('/auth/facebook');
 	}
 }
+
