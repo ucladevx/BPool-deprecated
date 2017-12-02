@@ -79,6 +79,14 @@ module.exports = (function () {
 		});
 	}
 
+	rideSchema.statics.update = function (rideId, source, destination, price, date, callback) {
+		Ride.findByIdAndUpdate(rideId, { $set: { source: source, destination: destination, price: price, date : date}}, { new: true }, function (err, ride) {
+		  if (err)
+				return handleError(err);
+		  callback(ride);
+		});
+	}
+
 	/*
 	* Functionality:
 	* 	- finds rides based on id given

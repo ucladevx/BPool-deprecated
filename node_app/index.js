@@ -17,6 +17,11 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
+Ride.update("5a22114ab8e0ec000fc6c342", "UCLA", "TEST", 27, new Date(), (ride)=>{
+	console.log(ride);
+});
+
+
 // make this available to our users in our Node applications
 module.exports = User;
 
@@ -175,6 +180,20 @@ app.get('/ride/:id', (req, res) => {
 	});
 });
 
+// Ride Edit Endpoint
+app.get('/ride/edit/:id', (req, res) => {
+	let rideDate = req.body.date;
+	let rideTime = req.body.time;
+	let rideOrigin = req.body.origin;
+	let rideDestination = req.body.destination;
+	let carModel = req.body.carModel;
+	let carNumSeats = req.body.carNumSeats;
+	let rideDescription = req.body.rideDescription;
+	let ridePrice = req.body.price;
+
+	Ride.update(String(req.params.id), riderideOrigin, rideDestination, ridePrice, rideDate);
+});
+
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
 	res.redirect(req.session.returnTo || '/ride/find');
@@ -208,4 +227,3 @@ function ensureAuthenticated(req, res, next) {
 		res.redirect('/auth/facebook');
 	}
 }
-
