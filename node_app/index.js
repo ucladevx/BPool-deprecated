@@ -188,7 +188,7 @@ app.post('/ride/edit/:id', (req, res) => {
 	let ridePrice = req.body.price;
 
 	Ride.update(String(req.params.id), riderideOrigin, rideDestination, ridePrice, rideDate);
-	res.redirect('/ride/:id');
+	res.redirect('/');
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
