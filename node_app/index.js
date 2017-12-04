@@ -130,7 +130,7 @@ app.get('/ride/edit/:id', (req, res) => {
 		res.render('create_ride', {
 			ride: ride,
 			actionText: 'Edit',
-			actionEndpoint: '/' // TODO fill in correct edit POST endpoint
+			actionEndpoint: '/ride/edit/' + rideId
 		});
 	});
 });
@@ -147,7 +147,9 @@ app.post('/ride/create', (req, res) => {
 	let ridePrice = parseFloat(req.body.price);
 
 	User.findByProfileId(req.user.id, (user) => {
-		Ride.insert(carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);
+		Ride.insert(carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp, (ride) => {
+			user.addRide(ride);	
+		});
 		res.redirect('/');
 	});
 });
