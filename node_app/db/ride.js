@@ -28,7 +28,7 @@ module.exports = (function () {
 		var query = {};
 		//If date is not null, we can specify date in query, otherwise leave blank. 
 		if (!isNaN(date.getTime())) {
-			query = { '$where': 'this.date.toDateString() ==  "' + date.toDateString() + '"' }
+			query = { '$where': 'this.timestamp.toDateString() ==  "' + date.toDateString() + '"' }
 		}
 		Ride.find(query).where('source').eq(source).where('destination').eq(destination).exec(function (err, rides) {
 			if (err) {
