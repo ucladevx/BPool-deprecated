@@ -9,7 +9,7 @@ RUN apk update && \
 
 # persist db data
 RUN mkdir -p /data/db
-# VOLUME /data/db
+VOLUME /data/db
 
 # configure database container for security
 RUN rm -rf /usr/bin/mongoperf
