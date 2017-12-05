@@ -82,11 +82,9 @@ app.listen(settings.port, () => {
 });
 
 app.get('/', (req, res) => {
-	if (req.user) {
-		console.log("User is signed in");
-	}
 	res.render('home', {
-		title: "BPool"
+		title: "BPool",
+		user: req.user
 	});
 });
 
@@ -97,30 +95,42 @@ app.get('/ride/results', (req, res) => {
 	let destination = req.query.destination;
 
 	Ride.searchByFilters(origin, destination, date, (rides) => {
-		res.render('ride_all', { rides: rides });
+		res.render('ride_all', { 
+			rides: rides,
+			user: req.user
+		});
 	});
 });
 
 app.get('/ride/all', (req, res) => {
 	Ride.getAll((rides) => {
-		res.render('ride_all', { rides: rides });
+		res.render('ride_all', { 
+			rides: rides,
+			user: req.user
+		});
 	});
 });
 
 app.get('/ride/new', ensureAuthenticated, (req, res) => {
 	res.render('ride_create', {
 		actionText: 'Create',
-		actionEndpoint: '/ride/create'
+		actionEndpoint: '/ride/create',
+		user: req.user
 	});
 });
 
 app.get('/ride/find', (req, res) => {
-	res.render('ride_find');
+	res.render('ride_find', {
+		user: req.user
+	});
 });
 
-app.get('/dashboard', (req, res) => {
-	Ride.getAll((rides) => {
-		res.render('dashboard', {rides: rides});
+app.get('/dashboard', ensureAuthenticated, (req, res) => {
+	User.findByProfileId(req.user.id, (user) => {
+		res.render('dashboard', {
+			rides: user.rides,
+			user: req.user
+		});
 	});
 });
 
@@ -130,12 +140,13 @@ app.get('/ride/edit/:id', (req, res) => {
 		res.render('create_ride', {
 			ride: ride,
 			actionText: 'Edit',
-			actionEndpoint: '/ride/edit/' + rideId
+			actionEndpoint: '/ride/edit/' + rideId,
+			user: req.user
 		});
 	});
 });
 
-app.post('/ride/create', (req, res) => {
+app.post('/ride/create', ensureAuthenticated, (req, res) => {
 	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
 	let rideTimestamp = rideDate.at(rideTime);
@@ -157,7 +168,10 @@ app.post('/ride/create', (req, res) => {
 // Ride Page Endpoint
 app.get('/ride/:id', (req, res) => {
 	Ride.findByRideId(String(req.params.id), (rides)=>{
-		res.render('ride_all', { rides: rides });
+		res.render('ride_all', { 
+			rides: rides,
+			user: req.user
+		});
 	});
 });
 
@@ -165,6 +179,10 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
 	res.redirect(req.session.returnTo || '/ride/find');
 	delete req.session.returnTo;
+});
+app.get('/auth/facebook/logout', (req, res) => {
+	req.logout();
+	res.redirect('/');	
 });
 
 app.post('/ride/find', (req, res) => {
