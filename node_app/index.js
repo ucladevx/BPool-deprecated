@@ -129,7 +129,7 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
 	User.findByProfileId(req.user.id, (user) => {
 		res.render('dashboard', {
 			rides: user.rides,
-			user: req.user
+			username: user.name
 		});
 	});
 });
