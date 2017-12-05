@@ -3,7 +3,7 @@ module.exports = (function () {
 	var userSchema = new mongoose.Schema({
 		name: String,
 		rides: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ride' }],
-		profileId: Number
+		profileId: String
 	});
 	/*
 	* Functionality:
@@ -15,8 +15,8 @@ module.exports = (function () {
 	* Returns:
 	* 	- the actual User mongoDB object
 	*/
-	userSchema.statics.insert = function(name, profileId, callback) {
-		let user = new User({ name: name, profileId: profileId});
+	userSchema.statics.insert = function (name, profileId, callback) {
+		let user = new User({ name: name, profileId: profileId });
 		user.save(function (err, data) {
 			if (err) {
 				throw err;
@@ -31,15 +31,17 @@ module.exports = (function () {
 	}
 
 	userSchema.statics.findByProfileId = (profileId, callback) => {
-		User.findOne({ 'profileId': profileId }, (err, user) => {
-			if (err) {
-				throw err;
-			}
+		User.findOne({ 'profileId': profileId })
+			.populate('rides')
+			.exec(function (err, user) {
+				if (err) {
+					throw err;
+				}
 
-			if (callback) {
-				callback(user);
-			}
-		});
+				if (callback) {
+					callback(user);
+				}
+			})
 	}
 
 	userSchema.methods.addRide = function (ride, callback) {
