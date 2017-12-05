@@ -14,7 +14,13 @@
             </g>
         </svg></a>
         <ul id="nav-mobile" class="right">
-            <li><a class="black-text" href="/auth/facebook">Login</a></li>
+            <li>
+                {{#if user}}
+                    <a class="black-text" href="/auth/facebook/logout">Logout</a>
+                {{else}}
+                    <a class="black-text" href="/auth/facebook">Login</a>
+                {{/if}}
+            </li>
         </ul>
         <ul id="nav-mobile" class="right">
             <li><a class="white-text deep-purple lighten-1" href="/ride/find">Find a Ride</a></li>

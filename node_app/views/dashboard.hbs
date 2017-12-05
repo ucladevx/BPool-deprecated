@@ -8,7 +8,19 @@
 <div class="deep-purple lighten-2">
 	<div class="container">
 		<div class="row">
-		    <h1 class="white-text" style="padding-top: 100px"><b>Your Upcoming Rides</b></h1>
+		    <h1 class="white-text" style="padding-top: 100px">
+				<b>
+					{{#if user}}
+						{{#if user.name}}
+							{{user.name}}'s Upcoming Rides
+						{{else}}
+							Your Upcoming Rides
+						{{/if}}
+					{{else}}
+						Your Upcoming Rides
+					{{/if}}
+				</b>
+			</h1>
 		    <div class="row">
 		        {{#each rides}} 
 		            {{> dash_ride_card this }} 
