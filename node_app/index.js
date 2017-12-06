@@ -17,6 +17,7 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
+
 // make this available to our users in our Node applications
 module.exports = User;
 
@@ -175,6 +176,23 @@ app.get('/ride/:id', (req, res) => {
 	});
 });
 
+// Ride Edit Endpoint
+app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
+	let rideDate = req.body.date;
+	let rideDate = new Date(req.body.date);
+	let rideTime = req.body.time;
+	let rideTimestamp = rideDate.at(rideTime);
+	let rideOrigin = req.body.origin;
+	let rideDestination = req.body.destination;
+	let carModel = req.body.carModel;
+	let carNumSeats = parseInt(req.body.carNumSeats);
+	let rideDescription = req.body.rideDescription;
+	let ridePrice = parseFloat(req.body.price);
+
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
+	res.redirect('/');
+});
+
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
 	res.redirect(req.session.returnTo || '/ride/find');
@@ -208,4 +226,3 @@ function ensureAuthenticated(req, res, next) {
 		res.redirect('/auth/facebook');
 	}
 }
-
