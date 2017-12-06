@@ -192,6 +192,7 @@ app.get('/ride/:id', (req, res) => {
 		// Check if the currently logged in user is the driver for this ride
 		res.render('ride_details', {
 			ride: ride,
+			editPermitted: req.user && ride.driver.profileId === req.user.profileId,			
 			user: req.user
 		})
 	});

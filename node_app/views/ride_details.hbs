@@ -13,4 +13,8 @@
     <p>Driver: {{ride.driver.name}}</p>
     {{!-- TODO find all riders --}}
     <p>Rider(s): You</p>
+
+    {{#if editPermitted}}
+    <a href="/ride/edit/{{ride.id}}"><button>Edit</button></a>
+    {{/if}}
 </div>
