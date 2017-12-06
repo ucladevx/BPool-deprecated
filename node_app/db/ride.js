@@ -79,8 +79,19 @@ module.exports = (function () {
 		});
 	}
 
-	rideSchema.statics.update = function (rideId, source, destination, price, date, callback) {
-		Ride.findByIdAndUpdate(rideId, { $set: { source: source, destination: destination, price: price, date : date}}, { new: true }, function (err, ride) {
+	rideSchema.statics.update = function (carModel, description, destination, driver, numSeats, price, source, timestamp, callback) {		
+		Ride.findByIdAndUpdate(rideId, { $set: { 
+			source: source,
+			destination: destination,
+			price: price,
+			timestamp: timestamp,
+			numSeats: numSeats,
+			carModel: carModel,
+			description: description,
+			driver: driver
+		}},
+		{ safe: true, upsert: true, new: true }, 
+		(err, ride) => {
 			if (err) {
 				return handleError(err);
 			}

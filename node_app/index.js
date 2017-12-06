@@ -177,17 +177,19 @@ app.get('/ride/:id', (req, res) => {
 });
 
 // Ride Edit Endpoint
-app.post('/ride/edit/:id', (req, res) => {
+app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDate = req.body.date;
+	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
+	let rideTimestamp = rideDate.at(rideTime);
 	let rideOrigin = req.body.origin;
 	let rideDestination = req.body.destination;
 	let carModel = req.body.carModel;
-	let carNumSeats = req.body.carNumSeats;
+	let carNumSeats = parseInt(req.body.carNumSeats);
 	let rideDescription = req.body.rideDescription;
-	let ridePrice = req.body.price;
+	let ridePrice = parseFloat(req.body.price);
 
-	Ride.update(String(req.params.id), riderideOrigin, rideDestination, ridePrice, rideDate);
+	Ride.update(carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
 	res.redirect('/');
 });
 
