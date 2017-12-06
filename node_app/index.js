@@ -61,11 +61,13 @@ passport.use(new FacebookStrategy({
 
 		User.findByProfileId(profileId, (user) => {
 			if (!user) {
-				User.insert(userName, profileId);
+				User.insert(userName, profileId, (user) => {
+					return done(null, user);
+				});				
 			}
+			return done(null, user);			
 		});
 
-		return done(null, profile);
 	}
 ));
 
@@ -127,9 +129,24 @@ app.get('/ride/find', (req, res) => {
 });
 
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
-	User.findByProfileId(req.user.id, (user) => {
+	User.findByProfileId(req.user.profileId, (user) => {
+		let rides =  user.rides;
+		let pastRides = [];
+		let upcomingRides = [];
+		let todayDate = new Date();
+		for (let i = 0; i < rides.length; i++) {
+			let ride = rides[i];
+			let timestamp = ride.timestamp;
+			// Ride datetime is greater than today
+			if (timestamp.compareTo(todayDate) > 0) {
+				upcomingRides.push(ride);
+			} else {
+				pastRides.push(ride);
+			}
+		}
 		res.render('dashboard', {
-			rides: user.rides,
+			upcomingRides: upcomingRides,
+			pastRides: pastRides,
 			username: user.name,
 			user: req.user
 		});
@@ -149,7 +166,7 @@ app.get('/ride/edit/:id', (req, res) => {
 			ride: ride,
 			actionText: 'Edit',
 			titleText: 'Edit your ride',
-			actionEndpoint: '/post/ride/edit/' + rideId,
+			actionEndpoint: '/ride/edit/' + rideId,
 			user: req.user
 		});
 	});
@@ -166,7 +183,7 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = parseFloat(req.body.price);
 
-	User.findByProfileId(req.user.id, (user) => {
+	User.findByProfileId(req.user.profileId, (user) => {
 		Ride.insert(carModel, rideDescription, rideDestination, user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp, (ride) => {
 			user.addRide(ride);
 		});
@@ -177,15 +194,18 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 // Ride Page Endpoint
 app.get('/ride/:id', (req, res) => {
 	Ride.findByRideId(req.params.id, (ride) => {
+		// Check if the currently logged in user is the driver for this ride
 		res.render('ride_details', {
-			ride: ride
+			ride: ride,
+			editPermitted: req.user && ride.driver.profileId === req.user.profileId,
+			user: req.user
 		})
 	});
 });
 
 // Ride Edit Endpoint
 // TODO doesn't work yet b/c the form is submiting as GET instead of POST??
-app.post('/post/ride/edit/:id', ensureAuthenticated, (req, res) => {
+app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
 	let rideTimestamp = rideDate.at(rideTime);
@@ -198,11 +218,12 @@ app.post('/post/ride/edit/:id', ensureAuthenticated, (req, res) => {
 
 	// TODO: req.user.id refers to the FB profile ID and should be the mongoose ID instead.
 	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);
+
 	res.redirect('/dashboard');
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }), (req, res) => {
 	res.redirect(req.session.returnTo || '/dashboard');
 	delete req.session.returnTo;
 });

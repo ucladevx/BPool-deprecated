@@ -4,7 +4,7 @@
             <h2>{{titleText}}</h2>
             <h3>What is your trip going to look like?</h3>
         </div>
-        <form class="col s12 m6 offset-m3 l8 offset-l2" method="POST" action="{{actionEndpoint}}">
+        <form id="rideForm" class="col s12 m6 offset-m3 l8 offset-l2" method="POST" action="{{actionEndpoint}}">
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">date_range</i>
@@ -33,9 +33,9 @@
                 <div class="input-field">
                     <i class="material-icons prefix">person_pin</i>
                     {{#if ride}}
-                    <input type="text" class="validate" id="origin" name="origin" value="{{ride.source}}">
+                    <input type="text" id="origin" name="origin" value="{{ride.source}}" required>
                     {{else}}
-                    <input type="text" class="validate" id="origin" name="origin">
+                    <input type="text" id="origin" name="origin" required>
                     {{/if}}
                     <label for="origin">Choose your origin</label>
                 </div>
@@ -45,9 +45,9 @@
                 <div class="input-field">
                     <i class="material-icons prefix">pin_drop</i>
                     {{#if ride}}
-                    <input type="text" class="validate" id="destination" name="destination" value="{{ride.destination}}">
+                    <input type="text" id="destination" name="destination" value="{{ride.destination}}" required>
                     {{else}}
-                    <input type="text" class="validate" id="destination" name="destination">
+                    <input type="text" id="destination" name="destination" required>
                     {{/if}}
                     <label for="destination">Destination</label>
                 </div>
@@ -57,18 +57,18 @@
                 <div class="input-field inline">
                     <i class="material-icons prefix">directions_car</i>
                     {{#if ride}}
-                    <input type="text" class="validate" id="carModel" name="carModel" value="{{ride.carModel}}">
+                    <input type="text" id="carModel" name="carModel" value="{{ride.carModel}}" required>
                     {{else}}
-                    <input type="text" class="validate" id="carModel" name="carModel">
+                    <input type="text" id="carModel" name="carModel" required>
                     {{/if}}
                     <label for="carModel">Car Model</label>
                 </div>
                 <div class="input-field inline">
                     <i class="material-icons prefix">airline_seat_recline_normal</i>
                     {{#if ride}}
-                    <input type="number" class="validate" id="carNumSeats" name="carNumSeats" value="{{ride.numSeats}}">
+                    <input type="number" id="carNumSeats" name="carNumSeats" value="{{ride.numSeats}}" required>
                     {{else}}
-                    <input type="number" class="validate" id="carNumSeats" name="carNumSeats">
+                    <input type="number" id="carNumSeats" name="carNumSeats" required>
                     {{/if}}
                     <label for="carNumSeats">Available Passenger Seats</label>
                 </div>
@@ -87,9 +87,9 @@
                 <div class="input-field">
                     <i class="material-icons prefix">attach_money</i>
                     {{#if ride}}
-                    <input type="number" class="validate" step="0.01" id="price" name="price" value="{{ride.price}}">
+                    <input type="number" step="0.01" id="price" name="price" value="{{ride.price}}" min="0.00" required>
                     {{else}}
-                    <input type="number" class="validate" step="0.01" id="price" name="price">
+                    <input type="number" step="0.01" id="price" name="price" min="0.00" required>
                     {{/if}}
                     <label for="price">Price per seat</label>
                 </div>
@@ -123,6 +123,17 @@
         canceltext: 'Cancel',
         autoclose: false,
         ampmclickable: true
+    });
+
+    $( "#rideForm" ).submit(function( event ) {
+      if($("#date").val() == ""){
+        alert("Please provide a date!");
+        event.preventDefault();
+      }
+      else if($("#time").val() == ""){
+        alert("Please provide a time!");
+        event.preventDefault();
+      }
     });
 
     $(document).ready(function () {
