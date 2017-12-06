@@ -26,7 +26,7 @@ module.exports = (function () {
 	*/
 	rideSchema.statics.searchByFilters = function (source, destination, date, callback) {
 		var query = {};
-		//If date is not null, we can specify date in query, otherwise leave blank. 
+		//If date is not null, we can specify date in query, otherwise leave blank.
 		if (!isNaN(date.getTime())) {
 			query = { '$where': 'this.timestamp.toDateString() ==  "' + date.toDateString() + '"' }
 		}
@@ -44,7 +44,7 @@ module.exports = (function () {
      * @summary inserts a new Ride object into our database
 	 * @param {String} car model
 	 * @param {String} description of the ride
-	 * @param {String} end destination of the ride 
+	 * @param {String} end destination of the ride
 	 * @param {String} driver ID
 	 * @param {String} number of seats in the car
 	 * @param {String} price fo the ride
@@ -123,6 +123,20 @@ module.exports = (function () {
 
 			if (callback) {
 				callback(ride);
+			}
+		});
+	}
+
+	/*
+	* Functionality:
+	* 	- Deletes ride given rideId
+	* Usage:
+	* 	Ride.deleteByRideId("5a27797c5b2b94000f1dbfb8");
+	*/
+	rideSchema.statics.deleteByRideId = (rideId, callback) => {
+		Ride.findOne({ _id: rideId }).populate("driver").remove().exec(function (err, callback) {
+			if (err) {
+				throw err;
 			}
 		});
 	}
