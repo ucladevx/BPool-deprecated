@@ -1,17 +1,17 @@
-<div class="ride-create form container grey lighten-5">
+<div class="ride-create form container">
     <div class="row">
         <div class="col s12 m6 offset-m3 l8 offset-l2 center-align">
-            <h2>Create a ride</h2>
+            <h2>{{titleText}}</h2>
             <h3>What is your trip going to look like?</h3>
         </div>
-        <form class="col s12 m6 offset-m3 l8 offset-l2" method="POST" action="/ride/create">
+        <form class="col s12 m6 offset-m3 l8 offset-l2" method="POST" action="{{actionEndpoint}}">
             <div class="row">
                 <div class="input-field">
                     <i class="material-icons prefix">date_range</i>
                     {{#if ride}}
-                    <input type="text" class="datepicker" id="date" name="date" value="{{formatDate ride.timestamp}}"> 
+                    <input type="text" class="datepicker" id="date" name="date" value="{{formatDate ride.timestamp}}">
                     {{else}}
-                    <input type="text" class="datepicker" id="date" name="date"> 
+                    <input type="text" class="datepicker" id="date" name="date">
                     {{/if}}
                     <label for="date">Date</label>
                 </div>
@@ -37,7 +37,7 @@
                     {{else}}
                     <input type="text" class="validate" id="origin" name="origin">
                     {{/if}}
-                    <label for="origin">Choose your origin</label>                    
+                    <label for="origin">Choose your origin</label>
                 </div>
             </div>
 

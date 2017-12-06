@@ -3,7 +3,7 @@ module.exports = (function () {
 	var userSchema = new mongoose.Schema({
 		name: String,
 		rides: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ride' }],
-		profileId: String
+		profileId: { type: String, unique: true }
 	});
 	/*
 	* Functionality:

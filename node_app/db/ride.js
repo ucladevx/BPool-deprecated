@@ -6,7 +6,7 @@ module.exports = (function () {
 		carModel: { type: String, required: true },
 		description: String,
 		destination: { type: String, required: true },
-		driver: { type: String, required: true },
+		driver: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 		numSeats: { type: Number, required: true },
 		price: { type: Number, required: true },
 		riders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
@@ -79,26 +79,30 @@ module.exports = (function () {
 		});
 	}
 
-	rideSchema.statics.update = function (rideId, carModel, description, destination, driver, numSeats, price, source, timestamp, callback) {		
-		Ride.findByIdAndUpdate(rideId, { $set: { 
-			source: source,
-			destination: destination,
-			price: price,
-			timestamp: timestamp,
-			numSeats: numSeats,
-			carModel: carModel,
-			description: description,
-			driver: driver
-		}},
-		{ safe: true, upsert: true, new: true }, 
-		(err, ride) => {
-			if (err) {
-				return handleError(err);
-			}
-			if(callback) {
-				callback(ride);
-			}
-		});
+	rideSchema.statics.update = function (rideId, carModel, description, destination, driver, numSeats, price, source, timestamp, callback) {
+		Ride.findOneAndUpdate(
+			{ "_id": rideId },
+			{
+				$set: {
+					"carModel": carModel,
+					"description": description,
+					"destination": destination,
+					"driver": driver,
+					"numSeats": numSeats,
+					"price": price,
+					"source": source,
+					"timestamp": timestamp
+				}
+			},
+			{ safe: true, upsert: true, new: true },
+			(err, ride) => {
+				if (err) {
+					throw err;
+				}
+				if (callback) {
+					callback(ride);
+				}
+			});
 	}
 
 	/*
@@ -112,10 +116,11 @@ module.exports = (function () {
 	* 	- the actual Ride mongoDB object you're searching for
 	*/
 	rideSchema.statics.findByRideId = (rideId, callback) => {
-		Ride.findOne({ _id: rideId }, (err, ride) => {
+		Ride.findOne({ _id: rideId }).populate("driver").exec(function (err, ride) {
 			if (err) {
 				throw err;
 			}
+
 			if (callback) {
 				callback(ride);
 			}
