@@ -192,7 +192,7 @@ app.get('/ride/:id', (req, res) => {
 		// Check if the currently logged in user is the driver for this ride
 		res.render('ride_details', {
 			ride: ride,
-			editPermitted: req.user && ride.driver.profileId === req.user.profileId,			
+			editPermitted: req.user && ride.driver.profileId === req.user.profileId,
 			user: req.user
 		})
 	});
@@ -217,7 +217,7 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }), (req, res) => {
 	res.redirect(req.session.returnTo || '/dashboard');
 	delete req.session.returnTo;
 });
