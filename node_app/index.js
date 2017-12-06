@@ -17,7 +17,6 @@ const User = require('./db/user.js');
 const Ride = require('./db/ride.js');
 const seed = require('./db/seed.js');
 
-
 // make this available to our users in our Node applications
 module.exports = User;
 
@@ -34,7 +33,7 @@ app.engine('hbs', exphbs({
 			return dateObj.toString('D');
 		},
 		formatTime: (dateObj) => {
-			// DateJS's custom "h:mm tt" date format		
+			// DateJS's custom "h:mm tt" date format
 			return dateObj.toString('t');
 		}
 	}
@@ -106,7 +105,7 @@ app.get('/ride/results', (req, res) => {
 	let destination = req.query.destination;
 
 	Ride.searchByFilters(origin, destination, date, (rides) => {
-		res.render('ride_all', { 
+		res.render('ride_all', {
 			rides: rides,
 			user: req.user
 		});
@@ -115,7 +114,7 @@ app.get('/ride/results', (req, res) => {
 
 app.get('/ride/all', (req, res) => {
 	Ride.getAll((rides) => {
-		res.render('ride_all', { 
+		res.render('ride_all', {
 			rides: rides,
 			user: req.user
 		});
@@ -161,6 +160,12 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
 		});
 	});
 });
+
+app.get('/ride/delete/:id', (req, res) => {
+	let rideId = req.params.id;
+	Ride.deleteByRideId(rideId);
+	res.redirect('/dashboard');
+})
 
 app.get('/ride/edit/:id', (req, res) => {
 	let rideId = req.params.id;
@@ -220,7 +225,8 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let ridePrice = parseFloat(req.body.price);
 
 	// TODO: req.user.id refers to the FB profile ID and should be the mongoose ID instead.
-	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);
+
 	res.redirect('/dashboard');
 });
 
