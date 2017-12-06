@@ -1,35 +1,34 @@
 <style>
-.brand-logo svg {
-  margin-top: 10px;
-  height: 40px;
-  fill: #ffffff;
-}
+	.brand-logo svg {
+		margin-top: 10px;
+		height: 40px;
+		fill: #ffffff;
+	}
 </style>
 <div class="deep-purple lighten-2">
 	<div class="container">
 		<div class="row">
-		    <h1 class="white-text" style="padding-top: 100px">
+			<h1 class="white-text" style="padding-top: 100px">
 				<b>
-					{{#if username}}
-						{{username}}'s Upcoming Rides
-					{{else}}
-						Your Upcoming Rides
-					{{/if}}
+					{{#if username}} {{username}}'s Rides {{else}} Your Rides {{/if}}
 				</b>
 			</h1>
-		    <div class="row">
-		        {{#each rides}} 
-		            {{> dash_ride_card this }} 
-		        {{/each}}
-		    </div>
+			<div class="row">
+				<h1>
+					<b>Upcoming Rides</b>
+				</h1>
+				<div class="row">
+					{{#each upcomingRides}} {{> dash_ride_card this }} {{/each}}
+				</div>
+			</div>
 		</div>
 		<div class="row">
-		    <h1><b>Past Rides</b></h1>
-		    <div class="row">
-		        {{#each rides}} 
-		            {{> dash_ride_card this }} 
-		        {{/each}} 
-		    </div>
+			<h1>
+				<b>Past Rides</b>
+			</h1>
+			<div class="row">
+				{{#each pastRides}} {{> dash_ride_card this }} {{/each}}
+			</div>
 		</div>
 	</div>
 </div>
