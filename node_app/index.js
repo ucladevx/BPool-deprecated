@@ -130,7 +130,7 @@ app.get('/ride/find', (req, res) => {
 });
 
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
-	User.findByProfileId(req.user.id, (user) => {
+	User.findByProfileId(req.user.profileId, (user) => {
 		let rides =  user.rides;
 		let pastRides = [];
 		let upcomingRides = [];
