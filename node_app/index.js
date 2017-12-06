@@ -198,7 +198,7 @@ app.post('/post/ride/edit/:id', ensureAuthenticated, (req, res) => {
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), (req, res) => {
-	res.redirect(req.session.returnTo || '/ride/find');
+	res.redirect(req.session.returnTo || '/dashboard');
 	delete req.session.returnTo;
 });
 app.get('/auth/facebook/logout', (req, res) => {
