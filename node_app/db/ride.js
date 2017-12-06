@@ -79,7 +79,7 @@ module.exports = (function () {
 		});
 	}
 
-	rideSchema.statics.update = function (carModel, description, destination, driver, numSeats, price, source, timestamp, callback) {		
+	rideSchema.statics.update = function (rideId, carModel, description, destination, driver, numSeats, price, source, timestamp, callback) {		
 		Ride.findByIdAndUpdate(rideId, { $set: { 
 			source: source,
 			destination: destination,

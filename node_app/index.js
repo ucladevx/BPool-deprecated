@@ -189,7 +189,7 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = parseFloat(req.body.price);
 
-	Ride.update(carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
 	res.redirect('/');
 });
 
