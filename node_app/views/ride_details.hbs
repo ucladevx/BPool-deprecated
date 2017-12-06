@@ -1,0 +1,16 @@
+<div class="container">
+    <p>
+        <b>{{formatDate ride.timestamp}} </b>
+    </p>
+    <span class="card-title deep-purple-text" style="font-size:35px; padding-top:10px">
+        <strong>{{ride.source}}</strong>
+        <span class="black-text">to</span>
+        <strong>{{ride.destination}}</strong>
+    </span>
+    <div>
+        <b>${{ride.price}}</b>
+    </div>
+    <p>Driver: {{ride.driver.name}}</p>
+    {{!-- TODO find all riders --}}
+    <p>Rider(s): You</p>
+</div>

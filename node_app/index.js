@@ -115,6 +115,7 @@ app.get('/ride/all', (req, res) => {
 app.get('/ride/new', ensureAuthenticated, (req, res) => {
 	res.render('ride_create', {
 		actionText: 'Create',
+		titleText: 'Create a ride',
 		actionEndpoint: '/ride/create',
 		user: req.user
 	});
@@ -130,7 +131,8 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
 	User.findByProfileId(req.user.id, (user) => {
 		res.render('dashboard', {
 			rides: user.rides,
-			username: user.name
+			username: user.name,
+			user: req.user
 		});
 	});
 });
@@ -138,10 +140,11 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
 app.get('/ride/edit/:id', (req, res) => {
 	let rideId = req.params.id;
 	Ride.findByRideId(rideId, (ride) => {
-		res.render('create_ride', {
+		res.render('ride_create', {
 			ride: ride,
 			actionText: 'Edit',
-			actionEndpoint: '/ride/edit/' + rideId,
+			titleText: 'Edit your ride',
+			actionEndpoint: '/post/ride/edit/' + rideId,
 			user: req.user
 		});
 	});
@@ -159,26 +162,25 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 	let ridePrice = parseFloat(req.body.price);
 
 	User.findByProfileId(req.user.id, (user) => {
-		Ride.insert(carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp, (ride) => {
+		Ride.insert(carModel, rideDescription, rideDestination, user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp, (ride) => {
 			user.addRide(ride);	
 		});
-		res.redirect('/');
+		res.redirect('/dashboard');
 	});
 });
 
 // Ride Page Endpoint
 app.get('/ride/:id', (req, res) => {
-	Ride.findByRideId(String(req.params.id), (rides)=>{
-		res.render('ride_all', { 
-			rides: rides,
-			user: req.user
-		});
+	Ride.findByRideId(req.params.id, (ride) => {
+		res.render('ride_details', {
+			ride: ride
+		})
 	});
 });
 
 // Ride Edit Endpoint
-app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
-	let rideDate = req.body.date;
+// TODO doesn't work yet b/c the form is submiting as GET instead of POST??
+app.post('/post/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
 	let rideTimestamp = rideDate.at(rideTime);
@@ -189,8 +191,8 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = parseFloat(req.body.price);
 
-	Ride.update(req.params.id, carModel, rideDescription, rideDestination, user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
-	res.redirect('/');
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
+	res.redirect('/dashboard');
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
