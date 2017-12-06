@@ -191,6 +191,7 @@ app.post('/post/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = parseFloat(req.body.price);
 
+	// TODO: req.user.id refers to the FB profile ID and should be the mongoose ID instead.
 	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
 	res.redirect('/dashboard');
 });
