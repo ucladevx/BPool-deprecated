@@ -153,7 +153,7 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
 	});
 });
 
-app.post('/ride/delete/:id', (req, res) => {
+app.get('/ride/delete/:id', (req, res) => {
 	let rideId = req.params.id;
 	Ride.deleteByRideId(rideId);
 	res.redirect('/dashboard');
