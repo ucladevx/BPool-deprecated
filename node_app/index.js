@@ -62,11 +62,13 @@ passport.use(new FacebookStrategy({
 
 		User.findByProfileId(profileId, (user) => {
 			if (!user) {
-				User.insert(userName, profileId);
+				User.insert(userName, profileId, (user) => {
+					return done(null, user);
+				});				
 			}
+			return done(null, user);			
 		});
 
-		return done(null, profile);
 	}
 ));
 
@@ -128,7 +130,7 @@ app.get('/ride/find', (req, res) => {
 });
 
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
-	User.findByProfileId(req.user.id, (user) => {
+	User.findByProfileId(req.user.profileId, (user) => {
 		let rides =  user.rides;
 		let pastRides = [];
 		let upcomingRides = [];
@@ -176,9 +178,9 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = parseFloat(req.body.price);
 
-	User.findByProfileId(req.user.id, (user) => {
+	User.findByProfileId(req.user.profileId, (user) => {
 		Ride.insert(carModel, rideDescription, rideDestination, user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp, (ride) => {
-			user.addRide(ride);	
+			user.addRide(ride);
 		});
 		res.redirect('/dashboard');
 	});
@@ -187,8 +189,10 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 // Ride Page Endpoint
 app.get('/ride/:id', (req, res) => {
 	Ride.findByRideId(req.params.id, (ride) => {
+		// Check if the currently logged in user is the driver for this ride
 		res.render('ride_details', {
-			ride: ride
+			ride: ride,
+			user: req.user
 		})
 	});
 });
