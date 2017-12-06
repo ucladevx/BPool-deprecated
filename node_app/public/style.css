@@ -9,6 +9,7 @@ h3 {
 
 .container {
   padding-top: 100px;
+  height: 100vh;
 }
 
 /*NAVIGATION*/
@@ -65,7 +66,7 @@ nav {
   margin-top: 50px;
 }
 
-/*FORM UI*/ 
+/*FORM*/ 
 .form h2,h3 {
   text-align: left;
   font-weight: bold;
@@ -75,13 +76,23 @@ nav {
   font-weight: 800;  
 }
 
-body {
-  font-family: 'Fira Sans', monospace;
-}
-
 ul{
   padding-left: 10px;
   padding-right: 10px;
+}
+
+/*DASHBOARD PAGE*/
+.dashboard {
+  height: 100vh;
+}
+
+.dashboard .section-header {
+  font-weight: bold;
+  color: white;
+} 
+
+.dashboard h1 {
+  font-size: 36px;
 }
 
 .dash-card-dim {

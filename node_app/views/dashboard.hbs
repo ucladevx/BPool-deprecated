@@ -5,27 +5,25 @@
 		fill: #ffffff;
 	}
 </style>
-<div class="deep-purple lighten-2">
+<div class="dashboard deep-purple lighten-2">
 	<div class="container">
 		<div class="row">
-			<h1 class="white-text" style="padding-top: 100px">
+			<h1 class="white-text">
 				<b>
 					{{#if username}} {{username}}'s Rides {{else}} Your Rides {{/if}}
 				</b>
 			</h1>
+		</div>
+
+		<div class="row">
+			<h2 class="section-header">Upcoming Rides</h2>
 			<div class="row">
-				<h1>
-					<b>Upcoming Rides</b>
-				</h1>
-				<div class="row">
-					{{#each upcomingRides}} {{> ride_card this }} {{/each}}
-				</div>
+				{{#each upcomingRides}} {{> ride_card this }} {{/each}}
 			</div>
 		</div>
+
 		<div class="row">
-			<h1>
-				<b>Past Rides</b>
-			</h1>
+			<h2 class="section-header">Past Rides</h2>
 			<div class="row">
 				{{#each pastRides}} {{> ride_card this }} {{/each}}
 			</div>
