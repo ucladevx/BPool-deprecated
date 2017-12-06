@@ -85,6 +85,14 @@ app.listen(settings.port, () => {
 });
 
 app.get('/', (req, res) => {
+	if (req.user) {
+		res.redirect('/dashboard');
+	} else {
+		res.redirect('/landing');
+	}
+});
+
+app.get('/landing', (req, res) => {
 	res.render('home', {
 		title: "BPool",
 		user: req.user
@@ -223,7 +231,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 });
 app.get('/auth/facebook/logout', (req, res) => {
 	req.logout();
-	res.redirect('/');	
+	res.redirect('/landing');	
 });
 
 app.post('/ride/find', (req, res) => {
