@@ -129,8 +129,23 @@ app.get('/ride/find', (req, res) => {
 
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
 	User.findByProfileId(req.user.id, (user) => {
+		let rides =  user.rides;
+		let pastRides = [];
+		let upcomingRides = [];
+		let todayDate = new Date();
+		for (let i = 0; i < rides.length; i++) {
+			let ride = rides[i];
+			let timestamp = ride.timestamp;
+			// Ride datetime is greater than today
+			if (timestamp.compareTo(todayDate) > 0) {
+				upcomingRides.push(ride);
+			} else {
+				pastRides.push(ride);
+			}
+		}
 		res.render('dashboard', {
-			rides: user.rides,
+			upcomingRides: upcomingRides,
+			pastRides: pastRides,
 			username: user.name,
 			user: req.user
 		});
