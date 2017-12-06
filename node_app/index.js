@@ -144,7 +144,7 @@ app.get('/ride/edit/:id', (req, res) => {
 			ride: ride,
 			actionText: 'Edit',
 			titleText: 'Edit your ride',
-			actionEndpoint: '/post/ride/edit/' + rideId,
+			actionEndpoint: '/ride/edit/' + rideId,
 			user: req.user
 		});
 	});
@@ -180,7 +180,7 @@ app.get('/ride/:id', (req, res) => {
 
 // Ride Edit Endpoint
 // TODO doesn't work yet b/c the form is submiting as GET instead of POST??
-app.post('/post/ride/edit/:id', ensureAuthenticated, (req, res) => {
+app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
 	let rideTimestamp = rideDate.at(rideTime);
@@ -192,7 +192,7 @@ app.post('/post/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let ridePrice = parseFloat(req.body.price);
 
 	// TODO: req.user.id refers to the FB profile ID and should be the mongoose ID instead.
-	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);		
 	res.redirect('/dashboard');
 });
 
