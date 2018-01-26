@@ -33,9 +33,27 @@
                 <div class="input-field">
                     <i class="material-icons prefix">person_pin</i>
                     {{#if ride}}
-                    <input type="text" id="origin" name="origin" value="{{ride.source}}" required>
+                    <select name="origin" id="origin" name="origin" value="{{ride.origin}}" required>
+          						<option value="">Choose your origin</option>
+          						<option value="UCLA">UCLA</option>
+          						<option value="San Diego">San Diego</option>
+          						<option value="Santa Barbara">Santa Barbara</option>
+          						<option value="Irvine">Irvine</option>
+          						<option value="San Francisco">San Francisco</option>
+          						<option value="Riverside">Riverside</option>
+          						<option value="SLO">SLO</option>
+          					</select>
                     {{else}}
-                    <input type="text" id="origin" name="origin" required>
+                    <select name="origin" id="origin" name="origin" required>
+                      <option value="">Choose your origin</option>
+                      <option value="UCLA">UCLA</option>
+                      <option value="San Diego">San Diego</option>
+                      <option value="Santa Barbara">Santa Barbara</option>
+                      <option value="Irvine">Irvine</option>
+                      <option value="San Francisco">San Francisco</option>
+                      <option value="Riverside">Riverside</option>
+                      <option value="SLO">SLO</option>
+                    </select>
                     {{/if}}
                     <label for="origin">Choose your origin</label>
                 </div>

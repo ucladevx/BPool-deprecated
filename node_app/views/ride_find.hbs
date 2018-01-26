@@ -1,5 +1,5 @@
 <style>
-	a { color: inherit; } 
+	a { color: inherit; }
 </style>
 <div class="ride-find form container">
     <div class="row">
@@ -14,9 +14,15 @@
 			<div class="row">
 				<div class="input-field">
 					<i class="material-icons prefix">person_pin</i>
-					<select name="origin">
+					<select name="origin" id="origin">
 						<option value="">Choose your origin</option>
 						<option value="UCLA">UCLA</option>
+						<option value="San Diego">San Diego</option>
+						<option value="Santa Barbara">Santa Barbara</option>
+						<option value="Irvine">Irvine</option>
+						<option value="San Francisco">San Francisco</option>
+						<option value="Riverside">Riverside</option>
+						<option value="SLO">SLO</option>
 					</select>
 					<label for="origin">Origin</label>
 				</div>
@@ -56,9 +62,9 @@
         close: 'Ok',
         closeOnSelect: false
     });
-    
+
     $(document).ready(function() {
     	$('select').material_select();
   	});
-         
+
 </script>
