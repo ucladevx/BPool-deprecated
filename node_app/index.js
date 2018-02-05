@@ -63,9 +63,9 @@ passport.use(new FacebookStrategy({
 			if (!user) {
 				User.insert(userName, profileId, (user) => {
 					return done(null, user);
-				});				
+				});
 			}
-			return done(null, user);			
+			return done(null, user);
 		});
 
 	}
@@ -225,7 +225,7 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let ridePrice = parseFloat(req.body.price);
 
 	// TODO: req.user.id refers to the FB profile ID and should be the mongoose ID instead.
-	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user.id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);
 
 	res.redirect('/dashboard');
 });
@@ -237,7 +237,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 });
 app.get('/auth/facebook/logout', (req, res) => {
 	req.logout();
-	res.redirect('/landing');	
+	res.redirect('/landing');
 });
 
 app.post('/ride/find', (req, res) => {
