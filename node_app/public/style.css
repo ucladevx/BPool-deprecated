@@ -8,16 +8,16 @@ h3 {
 }
 
 .container {
-  padding-top: 100px;
+  padding-top: 80px;
   height: 100vh;
 }
 
 /*NAVIGATION*/
 nav {
   background-color: rgba(0, 0, 0, 0);
-  position: fixed;
   z-index: 5;
   box-shadow: none;
+  height: 0;
 }
 
 .nav-wrapper {
@@ -32,7 +32,9 @@ nav {
 }
 
 #nav-mobile li a{
-  border-radius: 20px;
+  border-radius: 10px;
+  line-height: 44px;
+  margin-top: 5px;
 }
 
 /*LANDING PAGE*/
