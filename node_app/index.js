@@ -101,10 +101,10 @@ app.get('/landing', (req, res) => {
 // Endpoint
 app.get('/ride/results', (req, res) => {
 	let date = new Date(req.query.date);
-	let origin = req.query.origin;
+	let source = req.query.source;
 	let destination = req.query.destination;
 
-	Ride.searchByFilters(origin, destination, date, (rides) => {
+	Ride.searchByFilters(source, destination, date, (rides) => {
 		res.render('ride_all', {
 			rides: rides,
 			user: req.user
@@ -170,7 +170,6 @@ app.get('/ride/delete/:id', (req, res) => {
 app.get('/ride/edit/:id', (req, res) => {
 	let rideId = req.params.id;
 	Ride.findByRideId(rideId, (ride) => {
-		console.log(ride);
 		res.render('ride_create', {
 			ride: ride,
 			actionText: 'Edit',
@@ -185,7 +184,7 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
 	let rideTimestamp = rideDate.at(rideTime);
-	let rideOrigin = req.body.origin;
+	let rideSource = req.body.source;
 	let rideDestination = req.body.destination;
 	let carModel = req.body.carModel;
 	let carNumSeats = parseInt(req.body.carNumSeats);
@@ -193,7 +192,7 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 	let ridePrice = parseFloat(req.body.price);
 
 	User.findByProfileId(req.user.profileId, (user) => {
-		Ride.insert(carModel, rideDescription, rideDestination, user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp, (ride) => {
+		Ride.insert(carModel, rideDescription, rideDestination, user._id, carNumSeats, ridePrice, rideSource, rideTimestamp, (ride) => {
 			user.addRide(ride);
 		});
 		res.redirect('/dashboard');
@@ -218,7 +217,7 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
 	let rideTimestamp = rideDate.at(rideTime);
-	let rideOrigin = req.body.origin;
+	let rideSource = req.body.source;
 	let rideDestination = req.body.destination;
 	let carModel = req.body.carModel;
 	let carNumSeats = parseInt(req.body.carNumSeats);
@@ -226,7 +225,7 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let ridePrice = parseFloat(req.body.price);
 
 	// TODO: req.user.id refers to the FB profile ID and should be the mongoose ID instead.
-	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user._id, carNumSeats, ridePrice, rideOrigin, rideTimestamp);
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user._id, carNumSeats, ridePrice, rideSource, rideTimestamp);
 
 	res.redirect('/dashboard');
 });
@@ -243,14 +242,14 @@ app.get('/auth/facebook/logout', (req, res) => {
 
 app.post('/ride/find', (req, res) => {
 	let rideDate = req.body.date;
-	let rideOrigin = req.body.origin;
+	let rideSource = req.body.source;
 	let rideDestination = req.body.destination;
 
 	res.redirect(url.format({
 		pathname: "/ride/results",
 		query: {
 			"date": rideDate,
-			"origin": rideOrigin,
+			"source": rideSource,
 			"destination": rideDestination
 		}
 	}));
