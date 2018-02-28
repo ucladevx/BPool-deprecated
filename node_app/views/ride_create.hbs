@@ -33,7 +33,7 @@
                 <div class="input-field">
                     <i class="material-icons prefix">person_pin</i>
                     {{#if ride}}
-                    <select name="source" id="source" name="source" required>
+                    <select id="source" name="source">
           						<option value="{{ride.source}}" selected="selected">{{ride.source}}</option>
           						<option value="UCLA">UCLA</option>
           						<option value="San Diego">San Diego</option>
@@ -44,7 +44,7 @@
           						<option value="SLO">SLO</option>
           					</select>
                     {{else}}
-                    <select name="source" id="source" name="source" required>
+                    <select id="source" name="source">
                       <option value="">Choose your origin</option>
                       <option value="UCLA">UCLA</option>
                       <option value="San Diego">San Diego</option>
@@ -55,7 +55,7 @@
                       <option value="SLO">SLO</option>
                     </select>
                     {{/if}}
-                    <label for="source">Choose your origin</label>
+                    <label for="source">Origin</label>
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
                 <div class="input-field">
                     <i class="material-icons prefix">pin_drop</i>
                     {{#if ride}}
-                    <select name="destination" id="destination" name="destination" required>
+                    <select id="destination" name="destination">
                       <option value="{{ride.destination}}" selected="selected">{{ride.destination}}</option>
           						<option value="UCLA">UCLA</option>
           						<option value="San Diego">San Diego</option>
@@ -74,7 +74,7 @@
           						<option value="SLO">SLO</option>
           					</select>
                     {{else}}
-                    <select name="destination" id="destination" name="destination" required>
+                    <select id="destination" name="destination">
                       <option value="">Choose your destination</option>
                       <option value="UCLA">UCLA</option>
                       <option value="San Diego">San Diego</option>
@@ -162,12 +162,17 @@
     });
 
     $( "#rideForm" ).submit(function( event ) {
-      if($("#date").val() == ""){
+      if($("#date").val() == "") {
         alert("Please provide a date!");
         event.preventDefault();
-      }
-      else if($("#time").val() == ""){
+      } else if($("#time").val() == "") {
         alert("Please provide a time!");
+        event.preventDefault();
+      } else if ($("#origin").val() == "") {
+        alert("Please provide an origin!");
+        event.preventDefault();
+      } else if ($("#destination").val() == "") {
+        alert("Please provide a destination!");
         event.preventDefault();
       }
     });
