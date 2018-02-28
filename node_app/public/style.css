@@ -113,3 +113,7 @@ ul{
   bottom: 15px;
   right: 15px;
 }
+
+.force-relative {
+  position: relative !important;
+}

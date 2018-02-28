@@ -11,11 +11,36 @@
                     <div class="black-text price">
                         <b>${{this.price}}</b>
                     </div>
-                    <div class="black-text activator more">
-                        <i class="material-icons right">more_vert</i>
+                    <div class="black-text activator more" style="bottom:-15px; right:-15px">
+                        <div class="fixed-action-btn horizontal click-to-toggle force-relative">
+                            <a class="btn-floating btn-large purple">
+                              <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul>
+                              <li><a class="waves-effect waves-light purple btn" href="/ride/edit/{{this.id}}">Edit</a></li>
+                              <li><a class="waves-effect waves-light purple btn modal-trigger" href="#modal1">Delete</a></li>
+                            </ul>
+                         </div>
+                    </div>
+                    <div id="modal1" class="modal">
+                      <div class="modal-content">
+                        <h4>Are you sure you want to delete this ride?</h4>
+                        <p>You may have passengers. Please let them know if you are no longer offering this ride!</p>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="/ride/delete/{{this.id}}" class="modal-action modal-close waves-effect waves-purple btn-flat">Yes</a>
+                        <a href="/dashboard" class="modal-action modal-close waves-effect waves-purple btn-flat">No</a>
+                      </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </a>
+
+<script>
+  $(document).ready(function(){
+      // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+      $('.modal').modal();
+    });
+</script>
