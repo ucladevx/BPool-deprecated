@@ -57,13 +57,17 @@ passport.use(new FacebookStrategy({
 },
 	function (accessToken, refreshToken, profile, done) {
 		let userName = profile.displayName || null;
-		let profileId = profile.id;
+		let profileId = profile.id; // fb profile id is saved into profileId
 
 		User.findByProfileId(profileId, (user) => {
 			if (!user) {
 				User.insert(userName, profileId, (user) => {
 					return done(null, user);
 				});
+			}
+			else {
+				console.log("this is the username: " + userName);
+				console.log("this is the profileId: " + profileId);
 			}
 			return done(null, user);
 		});
