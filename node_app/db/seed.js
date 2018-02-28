@@ -8,7 +8,7 @@ const User = require('./user.js');
 initialRides((seedRides) => {
     for (let i = 0; i < seedRides.length; i++) {
         let ride = seedRides[i];
-        Ride.insert(ride.carModel, ride.description, ride.destination, ride.driver, ride.carNumSeats, ride.price, ride.origin, ride.timestamp);
+        Ride.insert(ride.carModel, ride.description, ride.destination, ride.driver, ride.carNumSeats, ride.price, ride.source, ride.timestamp);
     }
 });
 
@@ -25,7 +25,7 @@ function initialRides(callback) {
                 let rides = [
                     {
                         timestamp: date,
-                        origin: 'UCLA',
+                        source: 'UCLA',
                         destination: 'Santa Monica',
                         carModel: 'Toyota Prius',
                         carNumSeats: 4,
@@ -35,7 +35,7 @@ function initialRides(callback) {
                     },
                     {
                         timestamp: date,
-                        origin: 'UCLA',
+                        source: 'UCLA',
                         destination: 'San Diego',
                         carModel: 'Toyota Prius',
                         carNumSeats: 4,
@@ -45,7 +45,7 @@ function initialRides(callback) {
                     },
                     {
                         timestamp: date,
-                        origin: 'UCLA',
+                        source: 'UCLA',
                         destination: 'Santa Barbara',
                         carModel: 'Toyota Prius',
                         carNumSeats: 4,
