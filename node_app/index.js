@@ -170,6 +170,7 @@ app.get('/ride/delete/:id', (req, res) => {
 app.get('/ride/edit/:id', (req, res) => {
 	let rideId = req.params.id;
 	Ride.findByRideId(rideId, (ride) => {
+		console.log(ride);
 		res.render('ride_create', {
 			ride: ride,
 			actionText: 'Edit',
