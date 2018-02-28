@@ -79,7 +79,7 @@ module.exports = (function () {
 		});
 	}
 
-	rideSchema.statics.update = function (rideId, carModel, description, destination, driver, numSeats, price, source, timestamp, callback) {
+	rideSchema.statics.update = function (rideId, carModel, description, destination, driver, numSeats, price, riders, source, timestamp, callback) {
 		Ride.findOneAndUpdate(
 			{ "_id": rideId },
 			{
@@ -90,6 +90,7 @@ module.exports = (function () {
 					"driver": driver,
 					"numSeats": numSeats,
 					"price": price,
+					"riders": riders,
 					"source": source,
 					"timestamp": timestamp
 				}
@@ -104,6 +105,30 @@ module.exports = (function () {
 				}
 			});
 	}
+
+	rideSchema.statics.addRider = function (rideId, riderId, callback) {
+		Ride.findOne({ _id: rideId }).exec(function (err, ride) {
+			if(ride.numSeats > 0){
+				let numSeats = ride.numSeats - 1;
+				let riders = ride.riders;
+				riders.push(riderId);
+				Ride.update(rideId, ride.carModel, ride.description, ride.destination, ride.driver, numSeats, ride.price, riders, ride.source, ride.timestamp, (ride)=>{
+					if(err){
+						throw err;
+					}
+					if(callback){
+						callback(ride, true);
+					}
+				})
+			}
+			else{
+				if(callback){
+					callback(ride, false);
+				}
+			}
+		});
+	}
+
 
 	/*
 	* Functionality:
@@ -131,7 +156,7 @@ module.exports = (function () {
 	* Functionality:
 	* 	- Deletes ride given rideId
 	* Usage:
-	* 	Ride.deleteByRideId("5a27797c5b2b94000f1dbfb8");
+	* 	Ride.`delete`ByRideId("5a27797c5b2b94000f1dbfb8");
 	*/
 	rideSchema.statics.deleteByRideId = (rideId, callback) => {
 		Ride.findOne({ _id: rideId }).populate("driver").remove().exec(function (err, callback) {

@@ -20,6 +20,18 @@ const seed = require('./db/seed.js');
 // make this available to our users in our Node applications
 module.exports = User;
 
+
+// Ride.addRider("5a96375a9c6e00000fc74ec1", "5a277257354776000fcf0cf2", (ride, added)=>{
+// 	if(added){
+// 		console.log("Added!");
+// 	}
+// 	else{
+// 		console.log("Failed to Add.")
+// 	}
+// 	console.log(ride);
+// });
+
+
 app.use(express.static('public'));
 app.engine('hbs', exphbs({
 	extname: 'hbs',
@@ -180,6 +192,15 @@ app.get('/ride/edit/:id', (req, res) => {
 	});
 });
 
+app.get('/ride/add-to-ride/:id', (req, res) => {
+	let rideId = req.params.id;
+	User.findByProfileId(req.user.profileId, (user)=> {
+		Ride.addRider(rideId, user._id);
+		user.addRide(rideId);
+	});
+	res.redirect('/dashboard');
+});
+
 app.post('/ride/create', ensureAuthenticated, (req, res) => {
 	let rideDate = new Date(req.body.date);
 	let rideTime = req.body.time;
@@ -193,7 +214,7 @@ app.post('/ride/create', ensureAuthenticated, (req, res) => {
 
 	User.findByProfileId(req.user.profileId, (user) => {
 		Ride.insert(carModel, rideDescription, rideDestination, user._id, carNumSeats, ridePrice, rideSource, rideTimestamp, (ride) => {
-			user.addRide(ride);
+			user.addRide(ride._id);
 		});
 		res.redirect('/dashboard');
 	});
@@ -223,9 +244,10 @@ app.post('/ride/edit/:id', ensureAuthenticated, (req, res) => {
 	let carNumSeats = parseInt(req.body.carNumSeats);
 	let rideDescription = req.body.rideDescription;
 	let ridePrice = parseFloat(req.body.price);
+	let riders = req.body.riders;
 
 	// TODO: req.user.id refers to the FB profile ID and should be the mongoose ID instead.
-	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user._id, carNumSeats, ridePrice, rideSource, rideTimestamp);
+	Ride.update(req.params.id, carModel, rideDescription, rideDestination, req.user._id, carNumSeats, ridePrice, riders, rideSource, rideTimestamp);
 
 	res.redirect('/dashboard');
 });

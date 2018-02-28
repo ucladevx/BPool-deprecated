@@ -44,10 +44,10 @@ module.exports = (function () {
 			})
 	}
 
-	userSchema.methods.addRide = function (ride, callback) {
+	userSchema.methods.addRide = function (rideId, callback) {
 		User.findOneAndUpdate(
 			{ "profileId": this.profileId },
-			{ "$push": { "rides": ride._id } },
+			{ "$push": { "rides": rideId } },
 			{ safe: true, upsert: true, new: true },
 			(err, user) => {
 				if (callback) {
